@@ -1,0 +1,18 @@
+[
+    {
+        "model": "halls.table",
+        "pk": 1,
+        "fields": {
+            "table_number": 1,
+            "hall": 1
+        }
+    },
+    {
+        "model": "halls.table",
+        "pk": 2,
+        "fields": {
+            "table_number": 2,
+            "hall": 1
+        }
+    }
+]

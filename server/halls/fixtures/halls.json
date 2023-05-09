@@ -1,0 +1,10 @@
+[
+    {
+        "model": "halls.hall",
+        "pk": 1,
+        "fields": {
+            "title": "Hall 1",
+            "title_ukr": "Зал 1"
+        }
+    }
+]

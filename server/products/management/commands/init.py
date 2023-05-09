@@ -6,6 +6,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         call_command("migrate")
         call_command("loaddata", "users")
+        call_command("loaddata", "halls")
+        call_command("loaddata", "tables")
         call_command("loaddata", "departments")
         call_command("loaddata", "categories")
         call_command("loaddata", "attributes")

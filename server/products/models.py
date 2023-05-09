@@ -69,10 +69,6 @@ class Product(models.Model):
     def __str__(self) -> str:
         return self.title
 
-    def increase_rating(self, value) -> None:
-        self.rating += value
-        self.save()
-
     def decrease_stock(self, value) -> None:
         self.stock -= value
         if self.stock < 0:
