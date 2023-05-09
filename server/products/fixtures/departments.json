@@ -1,0 +1,10 @@
+[
+    {
+        "model": "products.department",
+        "pk": 1,
+        "fields": {
+            "title": "Pizzeria",
+            "title_ukr": "Піцерія"
+        }
+    }
+]

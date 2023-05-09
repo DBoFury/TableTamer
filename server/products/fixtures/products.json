@@ -1,0 +1,17 @@
+[
+    {
+        "model": "products.product",
+        "pk": 1,
+        "fields": {
+            "title": "Four cheese pizza",
+            "title_ukr": "Піца чотири сири",
+            "description": "Four cheese pizza",
+            "description_ukr": "Піца чотири сири",
+            "price": 150,
+            "image_url": null,
+            "slug": "four-cheese-pizza",
+            "stock": null,
+            "category": 1
+        }
+    }
+]

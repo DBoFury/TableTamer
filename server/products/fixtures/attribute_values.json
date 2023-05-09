@@ -1,0 +1,35 @@
+[
+    {
+        "model": "products.attributevalue",
+        "pk": 1,
+        "fields": {
+            "category": 1,
+            "attribute": 1,
+            "value": "Small",
+            "value_ukr": "Маленька",
+            "price_addition": 0
+        }
+    },
+    {
+        "model": "products.attributevalue",
+        "pk": 2,
+        "fields": {
+            "category": 1,
+            "attribute": 1,
+            "value": "Normal",
+            "value_ukr": "Нормальна",
+            "price_addition": 20
+        }
+    },
+    {
+        "model": "products.attributevalue",
+        "pk": 3,
+        "fields": {
+            "category": 1,
+            "attribute": 1,
+            "value": "Big",
+            "value_ukr": "Велика",
+            "price_addition": 50
+        }
+    }
+]

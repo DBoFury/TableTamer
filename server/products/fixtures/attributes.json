@@ -1,0 +1,10 @@
+[
+    {
+        "model": "products.attribute",
+        "pk": 1,
+        "fields": {
+            "title": "Size",
+            "title_ukr": "Розмір"
+        }
+    }
+]
