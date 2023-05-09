@@ -7,9 +7,10 @@
             "title_ukr": "Піца чотири сири",
             "description": "Four cheese pizza",
             "description_ukr": "Піца чотири сири",
-            "price": 150,
+            "price": 160,
             "image_url": null,
             "slug": "four-cheese-pizza",
+            "is_in_stoplist": false,
             "stock": null,
             "category": 1
         }

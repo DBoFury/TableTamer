@@ -1,24 +1,5 @@
 from django.db import models
-
-
-class Department(models.Model):
-    title = models.CharField(
-        max_length=64, unique=True,
-        verbose_name="Department",
-        help_text="Department name"
-    )
-    title_ukr = models.CharField(
-        max_length=64, unique=True,
-        verbose_name="Department (UKR)",
-        help_text="Department name in Ukrainian"
-    )
-
-    def __str__(self) -> str:
-        return self.title
-
-    class Meta:
-        verbose_name = "Department"
-        verbose_name_plural = "Departments"
+from departments.models import Department
 
 
 class Category(models.Model):
@@ -71,6 +52,11 @@ class Product(models.Model):
     slug = models.SlugField(
         verbose_name="Slug",
         help_text="A short label of a product to use in URL")
+    is_in_stoplist = models.BooleanField(
+        default=False,
+        verbose_name="Is in Stop List",
+        help_text="States if a product item in the Stop List"
+    )
     stock = models.IntegerField(
         null=True,
         blank=True,
