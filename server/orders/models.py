@@ -40,12 +40,12 @@ class OrderItem(models.Model):
     amount = models.SmallIntegerField(
         help_text="Amount of product ordered")
 
-    attribute_values = models.ManyToManyField(
-        AttributeValue, through="SelectedAttribute")
+    attribute_values = models.ManyToManyField(AttributeValue,
+                                              through='SelectedAttribute')
 
 
 class SelectedAttribute(models.Model):
     order_item = models.ForeignKey(OrderItem,
                                    on_delete=models.CASCADE)
-    attribute_value = models.ForeignKey(AttributeValue,
-                                        on_delete=models.CASCADE)
+    attribute_value = models.ForeignKey(
+        AttributeValue, on_delete=models.CASCADE)

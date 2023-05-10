@@ -1,14 +1,22 @@
 from django.contrib import admin
+from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
-from .models import Order, OrderItem, SelectedAttribute
+from .models import Order, OrderItem
 
 
-class OrderItemInline(admin.TabularInline):
-    model = OrderItem
+# TODO: only attributes that are not selected
+class SelectedAttributeInline(NestedStackedInline):
+    model = OrderItem.attribute_values.through
     extra = 1
 
 
-class OrderAdmin(admin.ModelAdmin):
+class OrderItemInline(NestedStackedInline):
+    model = OrderItem
+    extra = 1
+    inlines = [SelectedAttributeInline]
+
+
+class OrderAdmin(NestedModelAdmin):
     inlines = [OrderItemInline]
 
     list_display = ("created_at", "is_fulfilled", "is_paid",
