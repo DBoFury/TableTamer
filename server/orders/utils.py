@@ -1,7 +1,8 @@
 from products.models import Product
 # from users.models import User
 
-from .models import Order, OrderItem
+from products.models import AttributeValue
+from .models import Order, OrderItem, SelectedAttribute
 
 
 def is_order_data_valid(request):
@@ -18,8 +19,15 @@ def is_order_data_valid(request):
                     raise KeyError("slug")
                 if not "amount" in product:
                     raise KeyError("amount")
-                if not "selected_attributes" in product:
-                    raise KeyError("selected_attributes")
+                if not "attribute_values" in product:
+                    raise KeyError("attribute_values")
+                else:
+                    for attribute in product["attribute_values"]:
+                        if not "title" in attribute:
+                            raise KeyError("attribute_values.title")
+                        if not "value" in attribute:
+                            raise KeyError(
+                                "attribute_values.value")
     except KeyError as e:
         return str(e)
     return True
@@ -34,7 +42,13 @@ def create_order(request):
     order.user = user
     for product_data in products_data:
         product = Product.objects.get(slug=product_data["slug"])
-        OrderItem.objects.create(order=order, product=product,
-                                 amount=product_data["amount"])
-        # for selected_attribute in product_data["slug"]
+        order_item = OrderItem.objects.create(order=order, product=product,
+                                              amount=product_data["amount"])
+        for selected_attribute in product_data["attribute_values"]:
+            attribute_value = AttributeValue.objects.get(
+                attribute__title=selected_attribute["title"],
+                value=selected_attribute["value"]
+            )
+            SelectedAttribute.objects.create(order_item=order_item,
+                                             attribute_value=attribute_value)
     return order

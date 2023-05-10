@@ -36,6 +36,7 @@ class OrdersListView(APIView):
 
     def post(self, request, format=None):
         validation_result = is_order_data_valid(request)
+        # return Response(validation_result)
         if not isinstance(validation_result, str):
             order = create_order(request)
             return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
