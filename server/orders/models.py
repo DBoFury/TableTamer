@@ -1,6 +1,7 @@
-from departments.models import Department
 from django.db import models
+from django.db.models import Sum
 from products.models import AttributeValue, Product
+from users.models import User
 
 
 class Order(models.Model):
@@ -17,8 +18,8 @@ class Order(models.Model):
 
     products = models.ManyToManyField(Product, through="OrderItem")
 
-    # user = models.ForeignKey(
-    #     User, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True,
+                             blank=True, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return f"{self.created_at} {self.user or ''}"
@@ -27,7 +28,10 @@ class Order(models.Model):
     def full_price(self) -> int:
         full_price = 0
         for order_item in self.order_items.all():
-            full_price += order_item.amount * order_item.price_per_unit
+            full_price += order_item.amount * \
+                (order_item.product.price +
+                 order_item.attribute_values
+                    .aggregate(Sum("price_addition"))["price_addition__sum"])
         return full_price
 
 
@@ -41,7 +45,7 @@ class OrderItem(models.Model):
         help_text="Amount of product ordered")
 
     attribute_values = models.ManyToManyField(AttributeValue,
-                                              through='SelectedAttribute')
+                                              through="SelectedAttribute")
 
 
 class SelectedAttribute(models.Model):

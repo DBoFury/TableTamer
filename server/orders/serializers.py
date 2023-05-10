@@ -1,6 +1,6 @@
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
-
 from products.serializers import ProductSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from users.serializers import UserSerializer
 
 from .models import Order, OrderItem
 
@@ -15,7 +15,7 @@ class OrderItemSerializer(ModelSerializer):
 
 class OrderSerializer(ModelSerializer):
     products = OrderItemSerializer(many=True, source="order_items")
-    # user = UserSerializer()
+    user = UserSerializer()
     full_price = SerializerMethodField()
 
     def get_full_price(self, obj):

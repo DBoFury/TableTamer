@@ -2,22 +2,22 @@ from rest_framework import status
 from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 from rest_framework.views import APIView
-# from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Order
 from .serializers import OrderSerializer
 from .utils import create_order, is_order_data_valid
 
 
-# class IsAuthenticated(BasePermission):
-#     """
-#     The request is authenticated as a user, or is a read-only request.
-#     """
+class IsAuthenticated(BasePermission):
+    """
+    The request is authenticated as a user, or is a read-only request.
+    """
 
-#     def has_permission(self, request, view):
-#         if (request.method in ["POST"] or request.user and request.user.is_authenticated):
-#             return True
-#         return False
+    def has_permission(self, request, view):
+        if (request.method in ["POST"] or request.user and request.user.is_authenticated):
+            return True
+        return False
 
 
 class OrdersListView(APIView):
@@ -25,13 +25,12 @@ class OrdersListView(APIView):
     List all orders, create order.
     """
 
-    # authentication_classes = (JWTAuthentication,)
-    # permission_classes = (IsAuthenticated,)
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
-        # user = request.user
-        # orders = Order.objects.filter(user=user.id)
-        orders = Order.objects.all()
+        user = request.user
+        orders = Order.objects.filter(user=user.id)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
 
