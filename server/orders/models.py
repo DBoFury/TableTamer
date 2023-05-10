@@ -50,6 +50,7 @@ class OrderItem(models.Model):
 
 class SelectedAttribute(models.Model):
     order_item = models.ForeignKey(OrderItem,
-                                   on_delete=models.CASCADE)
+                                   on_delete=models.CASCADE,
+                                   related_name="selected_attributes")
     attribute_value = models.ForeignKey(
         AttributeValue, on_delete=models.CASCADE)
