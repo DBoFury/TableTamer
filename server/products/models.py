@@ -85,7 +85,8 @@ class Attribute(models.Model):
                              help_text="Attribute name")
     title_ukr = models.CharField(max_length=64, verbose_name="Attribute name (UKR)",
                                  help_text="Attribute name in Ukrainian")
-    categories = models.ManyToManyField(Category, through='AttributeValue')
+    categories = models.ManyToManyField(Category, through='AttributeValue',
+                                        related_name="attributes")
 
     def __str__(self) -> str:
         return self.title
@@ -97,8 +98,9 @@ class Attribute(models.Model):
 
 class AttributeValue(models.Model):
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="attribute_values")
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+        Category, on_delete=models.CASCADE)
+    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE,
+                                  related_name="values")
     value = models.CharField(max_length=128, null=False, blank=False)
     value_ukr = models.CharField(max_length=128, blank=True,
                                  verbose_name="Value (UKR)",

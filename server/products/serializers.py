@@ -1,25 +1,33 @@
-from rest_framework.serializers import ModelSerializer, CharField
-from .models import Product, Category, AttributeValue
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from .models import Product, Category, AttributeValue, Attribute
 from departments.serializers import DepartmentSerializer
 
 
 class AttributeValueSerializer(ModelSerializer):
-    title = CharField(source='attribute.title', read_only=True)
-    title_ukr = CharField(source='attribute.title_ukr', read_only=True)
-
     class Meta:
         model = AttributeValue
-        fields = ("title", "title_ukr", "value", "value_ukr", "price_addition")
+        fields = ("value", "value_ukr", "price_addition")
+
+
+class AttributeSerializer(ModelSerializer):
+    values = AttributeValueSerializer(many=True)
+
+    class Meta:
+        model = Attribute
+        fields = ("title", "title_ukr", "values")
 
 
 class CategorySerializer(ModelSerializer):
     department = DepartmentSerializer()
-    attributes = AttributeValueSerializer(
-        many=True, source="attribute_values")
+    attributes = SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ("department", "title", "title_ukr", "attributes")
+        fields = ("title", "title_ukr", "department", "attributes")
+
+    def get_attributes(self, obj):
+        return AttributeSerializer(obj.attributes.distinct(),
+                                   many=True).data
 
 
 class ProductSerializer(ModelSerializer):
