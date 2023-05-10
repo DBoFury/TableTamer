@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
     'rest_framework',
     'nested_inline',
     'halls',
@@ -143,8 +144,16 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
 AUTHENTICATION_BACKENDS = [
     'users.backends.EmailBackend',
     'users.backends.PhoneNumberBackend',
+    'users.backends.PinCodeBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]

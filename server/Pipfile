@@ -11,6 +11,7 @@ django-rest-framework = "*"
 django-nested-inline = "*"
 django-phonenumber-field = "*"
 django-phonenumbers = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 autopep8 = "*"

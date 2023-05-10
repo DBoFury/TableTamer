@@ -47,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def clean(self):
         super().clean()
-        if not self.email and not self.phone_number:
+        if not self.email and not self.phone_number and not self.pin_code:
             raise ValidationError(
                 "At least one of email or phone number must be provided."
             )
