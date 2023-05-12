@@ -1,24 +1,5 @@
 from django.db import models
-
-
-class Department(models.Model):
-    title = models.CharField(
-        max_length=64, unique=True,
-        verbose_name="Department",
-        help_text="Department name"
-    )
-    title_ukr = models.CharField(
-        max_length=64, unique=True,
-        verbose_name="Department (UKR)",
-        help_text="Department name in Ukrainian"
-    )
-
-    def __str__(self) -> str:
-        return self.title
-
-    class Meta:
-        verbose_name = "Department"
-        verbose_name_plural = "Departments"
+from departments.models import Department
 
 
 class Category(models.Model):
@@ -71,6 +52,11 @@ class Product(models.Model):
     slug = models.SlugField(
         verbose_name="Slug",
         help_text="A short label of a product to use in URL")
+    is_in_stoplist = models.BooleanField(
+        default=False,
+        verbose_name="Is in Stop List",
+        help_text="States if a product item in the Stop List"
+    )
     stock = models.IntegerField(
         null=True,
         blank=True,
@@ -83,15 +69,12 @@ class Product(models.Model):
     def __str__(self) -> str:
         return self.title
 
-    def increase_rating(self, value) -> None:
-        self.rating += value
-        self.save()
-
     def decrease_stock(self, value) -> None:
-        self.stock -= value
-        if self.stock < 0:
-            self.stock = 0
-        self.save()
+        if self.stock:
+            self.stock -= value
+            if self.stock < 0:
+                self.stock = 0
+            self.save()
 
     class Meta:
         verbose_name = "Product"
@@ -103,7 +86,8 @@ class Attribute(models.Model):
                              help_text="Attribute name")
     title_ukr = models.CharField(max_length=64, verbose_name="Attribute name (UKR)",
                                  help_text="Attribute name in Ukrainian")
-    categories = models.ManyToManyField(Category, through='AttributeValue')
+    categories = models.ManyToManyField(Category, through='AttributeValue',
+                                        related_name="attributes")
 
     def __str__(self) -> str:
         return self.title
@@ -115,8 +99,9 @@ class Attribute(models.Model):
 
 class AttributeValue(models.Model):
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="attribute_values")
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+        Category, on_delete=models.CASCADE)
+    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE,
+                                  related_name="values")
     value = models.CharField(max_length=128, null=False, blank=False)
     value_ukr = models.CharField(max_length=128, blank=True,
                                  verbose_name="Value (UKR)",

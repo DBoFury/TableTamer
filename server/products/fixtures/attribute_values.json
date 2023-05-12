@@ -31,5 +31,49 @@
             "value_ukr": "Велика",
             "price_addition": 50
         }
+    },
+    {
+        "model": "products.attributevalue",
+        "pk": 4,
+        "fields": {
+            "category": 2,
+            "attribute": 2,
+            "value": "0.5L",
+            "value_ukr": "0.5L",
+            "price_addition": 0
+        }
+    },
+    {
+        "model": "products.attributevalue",
+        "pk": 5,
+        "fields": {
+            "category": 2,
+            "attribute": 2,
+            "value": "1L",
+            "value_ukr": "1L",
+            "price_addition": 15
+        }
+    },
+    {
+        "model": "products.attributevalue",
+        "pk": 6,
+        "fields": {
+            "category": 3,
+            "attribute": 3,
+            "value": "Normal",
+            "value_ukr": "Звичайний",
+            "price_addition": 0
+        }
+    },
+    {
+        "model": "products.attributevalue",
+        "pk": 7,
+        "fields": {
+            "category": 3,
+            "attribute": 3,
+            "value": "Spicy",
+            "value_ukr": "Гострий",
+            "price_addition": 20
+        }
     }
 ]
