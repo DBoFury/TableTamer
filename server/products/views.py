@@ -43,14 +43,13 @@ class ProductDetailsView(APIView):
     Returns one product data.
     """
 
-    def get_object(self, slug):
+    def get_product(self, slug):
         try:
             return Product.objects.get(slug=slug)
         except Product.DoesNotExist:
             raise Http404
 
     def get(self, request, slug, format=None):
-        product = self.get_object(slug)
+        product = self.get_product(slug)
         serializer = ProductSerializer(product)
         return Response(serializer.data, status=status.HTTP_200_OK)
-

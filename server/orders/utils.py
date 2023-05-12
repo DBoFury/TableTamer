@@ -38,8 +38,7 @@ def create_order(request):
     validated_data = request.data
 
     products_data = validated_data.pop("products")
-    order = Order.objects.create(**validated_data)
-    order.user = user
+    order = Order.objects.create(**validated_data, user=user)
     for product_data in products_data:
         product = Product.objects.get(slug=product_data["slug"])
         order_item = OrderItem.objects.create(order=order, product=product,
@@ -51,4 +50,35 @@ def create_order(request):
             )
             SelectedAttribute.objects.create(order_item=order_item,
                                              attribute_value=attribute_value)
+    return order
+
+
+def update_order(request, order: Order):
+    validated_data = request.data
+
+    products_data = validated_data.pop("products")
+
+    is_takeaway = validated_data.pop("is_takeaway", order.is_takeaway)
+    is_paid = validated_data.pop("is_paid", order.is_paid)
+    is_fulfilled = validated_data.pop("is_fulfilled", order.is_fulfilled)
+
+    order.is_takeaway = is_takeaway
+    order.is_paid = is_paid
+    order.is_fulfilled = is_fulfilled
+
+    order.order_items.all().delete()
+    for product_data in products_data:
+        product = Product.objects.get(slug=product_data["slug"])
+        order_item = OrderItem.objects.create(order=order, product=product,
+                                              amount=product_data["amount"])
+        for selected_attribute in product_data["attribute_values"]:
+            attribute_value = AttributeValue.objects.get(
+                attribute__title=selected_attribute["title"],
+                value=selected_attribute["value"]
+            )
+            SelectedAttribute.objects.create(order_item=order_item,
+                                             attribute_value=attribute_value)
+
+    order.save()
+
     return order

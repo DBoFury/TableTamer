@@ -27,4 +27,5 @@ class OrderAdmin(NestedModelAdmin):
         return obj.full_price
 
 
+admin.site.register(OrderItem)
 admin.site.register(Order, OrderAdmin)
