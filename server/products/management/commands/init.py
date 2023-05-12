@@ -13,3 +13,4 @@ class Command(BaseCommand):
         call_command("loaddata", "attributes")
         call_command("loaddata", "attribute_values")
         call_command("loaddata", "products")
+        call_command("loaddata", "orders")

@@ -70,10 +70,11 @@ class Product(models.Model):
         return self.title
 
     def decrease_stock(self, value) -> None:
-        self.stock -= value
-        if self.stock < 0:
-            self.stock = 0
-        self.save()
+        if self.stock:
+            self.stock -= value
+            if self.stock < 0:
+                self.stock = 0
+            self.save()
 
     class Meta:
         verbose_name = "Product"

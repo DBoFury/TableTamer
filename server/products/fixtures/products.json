@@ -14,5 +14,37 @@
             "stock": null,
             "category": 1
         }
+    },
+    {
+        "model": "products.product",
+        "pk": 2,
+        "fields": {
+            "title": "Kebab",
+            "title_ukr": "Шашлик",
+            "description": "Savor our delicious kebab dish, featuring tender, marinated meat grilled to perfection with aromatic spices. Accompanied by fresh vegetables, zesty sauces, and a choice of rice or bread, it's a culinary delight that combines tradition and flavor. Experience the rich heritage of our restaurant in every bite.",
+            "description_ukr": "Попробуйте наше восхитительное блюдо кебаб, в котором нежное, маринованное мясо обжаривается до совершенства с ароматными специями. В сочетании со свежими овощами, пикантными соусами и рисом или хлебом на выбор - это кулинарное наслаждение, сочетающее в себе традиции и вкус. Ощутите богатое наследие нашего ресторана в каждом кусочке.",
+            "price": 140,
+            "image_url": null,
+            "slug": "kebab",
+            "is_in_stoplist": false,
+            "stock": null,
+            "category": 3
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 3,
+        "fields": {
+            "title": "Juice",
+            "title_ukr": "Сік",
+            "description": "Refresh with our vibrant fruit juices. Made from fresh, flavorful fruits, our juices offer a revitalizing burst of natural goodness. From tangy citrus blends to tropical favorites, each sip is a refreshing treat. Enjoy the health benefits and delightful flavors of our carefully crafted juices, perfect for any time of day.",
+            "description_ukr": "Освіжіться з нашими яскравими фруктовими соками. Виготовлені зі свіжих, ароматних фруктів, наші соки дарують заряд бадьорості та натуральної користі. Від пікантних цитрусових до улюблених тропічних, кожен ковток - це освіжаюча насолода. Насолоджуйтеся користю для здоров'я та чудовим смаком наших ретельно виготовлених соків, які ідеально підходять для будь-якої пори дня.",
+            "price": 30,
+            "image_url": null,
+            "slug": "juice",
+            "is_in_stoplist": false,
+            "stock": 24,
+            "category": 2
+        }
     }
 ]

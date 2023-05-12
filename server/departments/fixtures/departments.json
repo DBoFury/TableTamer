@@ -6,5 +6,21 @@
             "title": "Pizzeria",
             "title_ukr": "Піцерія"
         }
+    },
+    {
+        "model": "departments.department",
+        "pk": 2,
+        "fields": {
+            "title": "Brazier",
+            "title_ukr": "Мангал"
+        }
+    },
+    {
+        "model": "departments.department",
+        "pk": 3,
+        "fields": {
+            "title": "Bar",
+            "title_ukr": "Бар"
+        }
     }
 ]

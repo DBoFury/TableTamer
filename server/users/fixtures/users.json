@@ -4,7 +4,7 @@
         "pk": 1,
         "fields": {
             "password": "pbkdf2_sha256$600000$ilJ0VIXT9hGItAAY0ggtt4$KeK/rMOos2O448CuIsq0r5tb9reCVrpY0Zinw01byow=",
-            "last_login": null,
+            "last_login": "2023-05-12T12:36:03.031Z",
             "is_superuser": true,
             "email": "admin@admin.com",
             "phone_number": null,

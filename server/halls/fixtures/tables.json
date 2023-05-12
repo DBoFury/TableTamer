@@ -14,5 +14,53 @@
             "table_number": 2,
             "hall": 1
         }
+    },
+    {
+        "model": "halls.table",
+        "pk": 3,
+        "fields": {
+            "table_number": 1,
+            "hall": 2
+        }
+    },
+    {
+        "model": "halls.table",
+        "pk": 4,
+        "fields": {
+            "table_number": 2,
+            "hall": 2
+        }
+    },
+    {
+        "model": "halls.table",
+        "pk": 5,
+        "fields": {
+            "table_number": 3,
+            "hall": 2
+        }
+    },
+    {
+        "model": "halls.table",
+        "pk": 6,
+        "fields": {
+            "table_number": 4,
+            "hall": 2
+        }
+    },
+    {
+        "model": "halls.table",
+        "pk": 7,
+        "fields": {
+            "table_number": 5,
+            "hall": 2
+        }
+    },
+    {
+        "model": "halls.table",
+        "pk": 8,
+        "fields": {
+            "table_number": 6,
+            "hall": 2
+        }
     }
 ]
