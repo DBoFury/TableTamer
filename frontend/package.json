@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-pin-input-hook": "^1.0.9",
+    "react-simple-keyboard": "^3.5.73"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
