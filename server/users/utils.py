@@ -8,3 +8,20 @@ def get_user_data(data):
     if not email and not phone_number and not pin_code:
         raise KeyError("At least on of the values should be provided.")
     return email, phone_number, pin_code, password
+
+
+def filter_users(users_queryset,
+                 email=None, phone_number=None,
+                 pin_code=None):
+    if email is not None:
+        users_queryset = users_queryset.filter(email=email)
+
+    if phone_number is not None:
+        users_queryset = users_queryset.filter(
+            phone_number=phone_number)
+
+    if pin_code is not None:
+        users_queryset = users_queryset\
+            .filter(pin_code=pin_code)
+
+    return users_queryset
