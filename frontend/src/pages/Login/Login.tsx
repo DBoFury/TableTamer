@@ -5,10 +5,12 @@ import { useState } from "react";
 import { usePinInput } from "react-pin-input-hook";
 import { useDispatch } from "react-redux";
 import api from "../../components/API/api";
-import "./LoginPage.css";
+import "./Login.css";
 import ErrorModal from "../../components/ErrorModal/ErrorModal";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [values, setValues] = useState(Array(4).fill(""));
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +43,7 @@ const LoginPage = () => {
       });
     setTimeout(() => {
       handleClear();
+      navigate("/");
     }, 200);
   };
 
