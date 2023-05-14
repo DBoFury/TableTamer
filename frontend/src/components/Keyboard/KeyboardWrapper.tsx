@@ -1,34 +1,67 @@
-import { FunctionComponent, MutableRefObject } from "react";
+import { FunctionComponent } from "react";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import "./KeyboardWrapper.css";
 
 interface IProps {
-  onSubmitHandler: () => void;
-  keyboardRef: MutableRefObject<null>;
+  values: string[];
+  setValues: (values: string[]) => void;
+  handleComplete: (values: string) => void;
 }
 
 const KeyboardWrapper: FunctionComponent<IProps> = ({
-  onSubmitHandler,
-  keyboardRef,
+  values,
+  setValues,
+  handleComplete,
 }) => {
-  const onChange = (input: string) => {
-    console.log("Input changed", input);
-  };
-
   const onKeyPress = (button: string) => {
-    console.log("Button pressed", button);
+    if (button === "{clear}") {
+      handleClear();
+      return;
+    }
 
-    if (button === "{clear}") handleClear();
+    if (button === "{bksp}") {
+      handleBackspace();
+      return;
+    }
+
+    let isFirstEmptyStringFound = false;
+
+    const modifiedArray = values.map((item) => {
+      if (!isFirstEmptyStringFound && item === "") {
+        isFirstEmptyStringFound = true;
+        return button;
+      }
+      return item;
+    });
+
+    setValues(modifiedArray);
+
+    if (modifiedArray.every((item) => item !== "")) {
+      handleComplete(modifiedArray.join(""));
+    }
   };
 
   const handleClear = () => {
-    keyboardRef.current?.clearInput();
+    setValues(Array(4).fill(""));
+  };
+
+  const handleBackspace = () => {
+    let isFirstNonEmptyStringFound = false;
+
+    const newArray = values.reverse().map((item) => {
+      if (!isFirstNonEmptyStringFound && item !== "") {
+        isFirstNonEmptyStringFound = true;
+        return "";
+      }
+      return item;
+    });
+
+    setValues(newArray.reverse());
   };
 
   return (
     <Keyboard
-      keyboardRef={(r) => (keyboardRef.current = r)}
       layoutName="default"
       layout={{
         default: ["1 2 3", "4 5 6", "7 8 9", "{clear} 0 {bksp}"],
@@ -42,9 +75,7 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
         "{bksp}": "&#8592",
       }}
       maxLength={4}
-      onChange={(input) => onChange(input)}
       onKeyPress={(button) => onKeyPress(button)}
-      onComplete={onSubmitHandler}
     />
   );
 };
