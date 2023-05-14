@@ -1,17 +1,19 @@
+import "./KeyboardWrapper.css";
 import { FunctionComponent } from "react";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
-import "./KeyboardWrapper.css";
 
 interface IProps {
   values: string[];
   setValues: (values: string[]) => void;
+  handleClear: () => void;
   handleComplete: (values: string) => void;
 }
 
 const KeyboardWrapper: FunctionComponent<IProps> = ({
   values,
   setValues,
+  handleClear,
   handleComplete,
 }) => {
   const onKeyPress = (button: string) => {
@@ -40,10 +42,6 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
     if (modifiedArray.every((item) => item !== "")) {
       handleComplete(modifiedArray.join(""));
     }
-  };
-
-  const handleClear = () => {
-    setValues(Array(4).fill(""));
   };
 
   const handleBackspace = () => {
