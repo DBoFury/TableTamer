@@ -13,6 +13,7 @@ django-phonenumber-field = "*"
 django-phonenumbers = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
+djangorestframework-camel-case = "*"
 
 [dev-packages]
 autopep8 = "*"
