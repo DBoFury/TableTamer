@@ -1,26 +1,29 @@
-import { AppState, TableType } from "../../stores/types";
-import { useSelector, useDispatch } from "react-redux";
-import { setSelectedTable } from "../../stores/reducers";
+import { TableType } from "../../stores/types";
 import TableImage from "../../assets/table.png";
 import "./TableButton.css";
 
 interface TableButtonPropsType {
+  isSelected: boolean;
   table: TableType;
+  handleTableClick: (table: TableType) => void;
 }
 
-const TableButton = ({ table }: TableButtonPropsType) => {
-  const dispatch = useDispatch();
-  const selectedTable: TableType | null = useSelector(
-    (state: AppState) => state.selectedTable
-  );
-
-  const handleTableClick = () => {
-    console.log(table);
-    dispatch(setSelectedTable(table));
+const TableButton = ({
+  isSelected,
+  table,
+  handleTableClick,
+}: TableButtonPropsType) => {
+  const handleClicK = () => {
+    handleTableClick(table);
   };
 
   return (
-    <button className="image-button" onClick={handleTableClick}>
+    <button
+      className="image-button"
+      style={{
+        background: isSelected ? "blue" : "none",
+      }}
+      onClick={handleClicK}>
       <img src={TableImage} />
       Table number: {table.tableNumber}
     </button>

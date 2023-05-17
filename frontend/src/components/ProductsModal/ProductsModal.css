@@ -1,0 +1,22 @@
+.modal-message-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 90vh;
+  background-color: whitesmoke;
+  padding: 30px;
+  border-radius: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.modal-message-title {
+  font-weight: bold;
+  font-size: large;
+}
+
+.modal-message-content {
+  font-size: medium;
+}

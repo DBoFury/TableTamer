@@ -1,0 +1,9 @@
+.product-contaner {
+  display: flex;
+  flex-direction: row;
+}
+
+.product-content {
+  display: flex;
+  flex-direction: column;
+}

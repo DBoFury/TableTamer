@@ -8,7 +8,7 @@ import "./Hall.css";
 const Hall = () => {
   const dispatch = useDispatch();
   const halls: HallType[] | null = useSelector(
-    (state: AppState) => state.hallsData
+    (state: AppState) => state.halls
   );
   const selectedHall: HallType | null = useSelector(
     (state: AppState) => state.selectedHall
@@ -26,9 +26,7 @@ const Hall = () => {
           handleHallClick={handleHallClick}
           selectedHall={selectedHall}
         />
-        <div className="tables-container">
-          <Tables selectedHall={selectedHall} />
-        </div>
+        <Tables selectedHall={selectedHall} />
       </div>
     </div>
   );
