@@ -11,7 +11,8 @@ export interface HallType {
 export interface AppState {
   jwtToken: string | null;
   hallsData: HallType[] | null;
-  selectedHall: string | null;
+  selectedHall: HallType | null;
+  selectedTable: TableType | null;
   // other state properties...
 }
 
@@ -19,6 +20,7 @@ export enum ActionType {
   SET_JWT_TOKEN = "SET_JWT_TOKEN",
   SET_HALLS_DATA = "SET_HALLS_DATA",
   SET_SELECTED_HALL = "SET_SELECTED_HALL",
+  SET_SELECTED_TABLE = "SET_SELECTED_TABLE",
   // other action types...
 }
 
@@ -34,7 +36,12 @@ export interface SetHallsDataAction {
 
 export interface SetSelectedHallAction {
   type: ActionType.SET_SELECTED_HALL;
-  payload: string | null;
+  payload: HallType | null;
+}
+
+export interface SetSelectedTableAction {
+  type: ActionType.SET_SELECTED_TABLE;
+  payload: TableType | null;
 }
 
 export const setJwtToken = (token: string | null): SetJwtTokenAction => ({
@@ -48,8 +55,15 @@ export const setHallsData = (data: HallType[] | null): SetHallsDataAction => ({
 });
 
 export const setSelectedHall = (
-  hall: string | null
+  hall: HallType | null
 ): SetSelectedHallAction => ({
   type: ActionType.SET_SELECTED_HALL,
   payload: hall,
+});
+
+export const setSelectedTable = (
+  table: TableType | null
+): SetSelectedTableAction => ({
+  type: ActionType.SET_SELECTED_TABLE,
+  payload: table,
 });

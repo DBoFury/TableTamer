@@ -19,7 +19,8 @@ const HallsNavBar = ({
           key={hall.title}
           onClick={() => handleHallClick(hall)}
           style={{
-            backgroundColor: selectedHall === hall ? "lightblue" : "white",
+            backgroundColor:
+              selectedHall?.title === hall.title ? "lightblue" : "white",
           }}>
           {hall.title}
         </button>

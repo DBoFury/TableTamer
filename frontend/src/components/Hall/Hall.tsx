@@ -1,18 +1,21 @@
-import { useState } from "react";
 import { AppState, HallType } from "../../stores/types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setSelectedHall } from "../../stores/reducers";
 import HallsNavBar from "./HallsNavBar/HallsNavBar";
 import Tables from "./Tables/Tables";
 import "./Hall.css";
 
 const Hall = () => {
-  const [selectedHall, setSelectedHall] = useState<HallType | null>(null);
+  const dispatch = useDispatch();
   const halls: HallType[] | null = useSelector(
     (state: AppState) => state.hallsData
   );
+  const selectedHall: HallType | null = useSelector(
+    (state: AppState) => state.selectedHall
+  );
 
   const handleHallClick = (hall: HallType | null) => {
-    setSelectedHall(hall);
+    dispatch(setSelectedHall(hall));
   };
 
   return (

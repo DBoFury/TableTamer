@@ -1,0 +1,12 @@
+.image-button {
+  border: none;
+  background: none;
+  padding: 0;
+  height: auto;
+  width: 40%;
+}
+
+.image-button img {
+  cursor: pointer;
+  width: 100%;
+}

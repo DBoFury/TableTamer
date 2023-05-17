@@ -1,22 +1,16 @@
 import { HallType, TableType } from "../../../stores/types";
+import TableButton from "../../TableButton/TableButton";
+import "./Tables.css";
 
 interface TablesPropsType {
   selectedHall: HallType | null;
 }
 
 const Tables = ({ selectedHall }: TablesPropsType) => {
-  console.log(selectedHall);
-
-  const handleTableClick = (table: TableType) => {
-    console.log(table);
-  };
-
   return (
-    <div className="hall-nav-container">
+    <div className="tables-container">
       {selectedHall?.tables?.map((table: TableType) => (
-        <button key={table.tableNumber} onClick={() => handleTableClick(table)}>
-          {table.tableNumber}
-        </button>
+        <TableButton key={table.tableNumber} table={table} />
       ))}
     </div>
   );
