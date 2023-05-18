@@ -46,9 +46,9 @@ export interface ProductOrderItemType {
 }
 
 export interface OrderType {
-  user: UserType;
-  products: ProductOrderItemType[];
-  commentary: string;
+  user: UserType | null;
+  products: ProductOrderItemType[] | null;
+  commentary: string | null;
 }
 
 export interface AppState {

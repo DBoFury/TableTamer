@@ -12,6 +12,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import "./ProductsModal.css";
+import AddComment from "../AddComment/AddComment";
 
 type ProductsModalProps = {
   open: boolean;
@@ -67,10 +68,6 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(orderItems);
-  }, [orderItems]);
-
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -97,9 +94,8 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
                 product.category.title === selectedCategory?.title
               ) {
                 return (
-                  <div className="product-amount-container">
+                  <div key={product.slug} className="product-amount-container">
                     <Product
-                      key={product.slug}
                       title={product.title}
                       description={product.description}
                       imageUrl={product.imageUrl}
@@ -121,7 +117,7 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
               }
             })}
           </div>
-          <button className="sticky-button-commentary">Add Comment</button>
+          <AddComment />
         </div>
       </Fade>
     </Modal>

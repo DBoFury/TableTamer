@@ -1,0 +1,19 @@
+.comment-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-form-actions-container {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+}
+
+.sticky-button {
+  position: sticky;
+  bottom: 0;
+  z-index: 999;
+  animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+  width: 100%;
+}
