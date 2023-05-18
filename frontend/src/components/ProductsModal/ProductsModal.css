@@ -20,3 +20,25 @@
 .modal-message-content {
   font-size: medium;
 }
+
+.product-amount-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.product-amount-change {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.product-amount-change p {
+  margin: 0;
+  min-width: 2em;
+  text-align: center;
+}
+
+.sticky-button-commentary {
+  position: sticky;
+}

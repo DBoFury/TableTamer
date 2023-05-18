@@ -1,6 +1,7 @@
-.product-contaner {
+.product-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .product-content {

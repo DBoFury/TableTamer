@@ -6,11 +6,8 @@ interface ProductPropsType {
   description: string | null;
   imageUrl: string;
   price: number;
-  slug: string;
   isInStoplist: boolean;
   category: CategoryType;
-  handleItemIncrease: (slug: string) => void;
-  handleItemDecrease: (slug: string) => void;
 }
 
 const Product = ({
@@ -18,11 +15,8 @@ const Product = ({
   description,
   imageUrl,
   price,
-  slug,
   isInStoplist,
   category,
-  handleItemIncrease,
-  handleItemDecrease,
 }: ProductPropsType) => {
   return (
     <div className="product-container">
@@ -34,10 +28,6 @@ const Product = ({
         </div>
         <p>{price}</p>
         <p>{category.title}</p>
-      </div>
-      <div className="product-amount-change">
-        <button onClick={() => handleItemIncrease(slug)}>+</button>
-        <button onClick={() => handleItemDecrease(slug)}>-</button>
       </div>
     </div>
   );

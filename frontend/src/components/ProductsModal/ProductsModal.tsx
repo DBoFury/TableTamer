@@ -30,8 +30,12 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
     setSelectedCategory(category);
   };
 
+  const findItemBySlug = (slug: string) => {
+    return orderItems?.find((item) => item.slug === slug);
+  };
+
   const handleItemIncrease = (slug: string) => {
-    const targetItem = orderItems?.find((item) => item.slug === slug);
+    const targetItem = findItemBySlug(slug);
     if (targetItem) {
       targetItem.amount += 1;
       const updatedItems = orderItems?.map((item) =>
@@ -48,7 +52,7 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
   };
 
   const handleItemDecrease = (slug: string) => {
-    const targetItem = orderItems?.find((item) => item.slug === slug);
+    const targetItem = findItemBySlug(slug);
     if (targetItem) {
       targetItem.amount -= 1;
       if (targetItem.amount <= 0) {
@@ -93,22 +97,31 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
                 product.category.title === selectedCategory?.title
               ) {
                 return (
-                  <Product
-                    key={product.slug}
-                    title={product.title}
-                    description={product.description}
-                    imageUrl={product.imageUrl}
-                    price={product.price}
-                    slug={product.slug}
-                    isInStoplist={product.isInStoplist}
-                    category={product.category}
-                    handleItemIncrease={handleItemIncrease}
-                    handleItemDecrease={handleItemDecrease}
-                  />
+                  <div className="product-amount-container">
+                    <Product
+                      key={product.slug}
+                      title={product.title}
+                      description={product.description}
+                      imageUrl={product.imageUrl}
+                      price={product.price}
+                      isInStoplist={product.isInStoplist}
+                      category={product.category}
+                    />
+                    <div className="product-amount-change">
+                      <button onClick={() => handleItemIncrease(product.slug)}>
+                        +
+                      </button>
+                      <p>{findItemBySlug(product.slug)?.amount || 0}</p>
+                      <button onClick={() => handleItemDecrease(product.slug)}>
+                        -
+                      </button>
+                    </div>
+                  </div>
                 );
               }
             })}
           </div>
+          <button className="sticky-button-commentary">Add Comment</button>
         </div>
       </Fade>
     </Modal>
