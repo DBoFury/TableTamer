@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   AppState,
   CategoryType,
@@ -23,6 +23,7 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryType | null>();
   const [orderItems, setOrderItems] = useState<ProductOrderItemType[] | null>();
+  const [commentary, setCommentary] = useState<string | null>(null);
   const products: ProductType[] | null = useSelector(
     (state: AppState) => state.products
   );
@@ -66,6 +67,10 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
         setOrderItems(updatedItems);
       }
     }
+  };
+
+  const handleSubmitCommentary = (text: string | null) => {
+    setCommentary(text);
   };
 
   return (
@@ -117,7 +122,10 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
               }
             })}
           </div>
-          <AddComment />
+          <AddComment
+            commentary={commentary}
+            handleSubmitComment={handleSubmitCommentary}
+          />
         </div>
       </Fade>
     </Modal>

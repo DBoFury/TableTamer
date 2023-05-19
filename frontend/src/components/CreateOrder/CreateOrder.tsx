@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AppState, TableType } from "../../stores/types";
-import { useSelector } from "react-redux";
+import { setOrder } from "../../stores/reducers";
+import { useSelector, useDispatch } from "react-redux";
 import ProductsModal from "../ProductsModal/ProductsModal";
 import "./CreateOrder.css";
 
@@ -9,6 +10,7 @@ const CreateOrder = () => {
   const selectedTable: TableType | null = useSelector(
     (state: AppState) => state.selectedTable
   );
+  const dispatch = useDispatch();
 
   const handleCreateOrderClick = () => {
     setCreateOrderOpen(true);
@@ -16,6 +18,7 @@ const CreateOrder = () => {
 
   const closeProductsModal = () => {
     setCreateOrderOpen(false);
+    dispatch(setOrder(null));
   };
 
   return (
@@ -26,11 +29,7 @@ const CreateOrder = () => {
           : "Create Takeaway order"}
       </button>
       {createOrderOpen && (
-        <ProductsModal
-          open={createOrderOpen}
-          message={"Test"}
-          onClose={closeProductsModal}
-        />
+        <ProductsModal open={createOrderOpen} onClose={closeProductsModal} />
       )}
     </div>
   );

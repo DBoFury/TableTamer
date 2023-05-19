@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   AppState,
+  UserType,
   HallType,
   TableType,
   DepartmentType,
@@ -11,6 +12,7 @@ import {
 
 const initialState: AppState = {
   jwtToken: null,
+  user: null,
   halls: null,
   selectedHall: null,
   selectedTable: null,
@@ -26,6 +28,9 @@ const appSlice = createSlice({
   reducers: {
     setJwtToken: (state, action: PayloadAction<string | null>) => {
       state.jwtToken = action.payload;
+    },
+    setUser: (state, action: PayloadAction<UserType | null>) => {
+      state.user = action.payload;
     },
     setHalls: (state, action: PayloadAction<HallType[] | null>) => {
       state.halls = action.payload;
@@ -53,6 +58,7 @@ const appSlice = createSlice({
 
 export const {
   setJwtToken,
+  setUser,
   setHalls,
   setSelectedHall,
   setSelectedTable,

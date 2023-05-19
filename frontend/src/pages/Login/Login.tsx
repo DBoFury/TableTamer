@@ -34,7 +34,7 @@ const LoginPage = () => {
         pin_code: pin,
       })
       .then((response) => {
-        const jwt = response.data.access_token;
+        const jwt = response.data.accessToken;
         dispatch(setJwtToken(jwt));
         localStorage.setItem("token", jwt);
       })

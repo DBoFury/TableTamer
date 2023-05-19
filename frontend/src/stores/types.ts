@@ -53,6 +53,7 @@ export interface OrderType {
 
 export interface AppState {
   jwtToken: string | null;
+  user: UserType | null;
   halls: HallType[] | null;
   selectedHall: HallType | null;
   selectedTable: TableType | null;
@@ -60,11 +61,11 @@ export interface AppState {
   categories: CategoryType[] | null;
   products: ProductType[] | null;
   order: OrderType | null;
-  // other state properties...
 }
 
 export enum ActionType {
   SET_JWT_TOKEN = "SET_JWT_TOKEN",
+  SET_USER = "SET_USER",
   SET_HALLS = "SET_HALLS",
   SET_SELECTED_HALL = "SET_SELECTED_HALL",
   SET_SELECTED_TABLE = "SET_SELECTED_TABLE",
@@ -72,12 +73,16 @@ export enum ActionType {
   SET_CATEGORIES = "SET_CATEGORIES",
   SET_PRODUCTS = "SET_PRODUCTS",
   SET_ORDER = "SET_ORDER",
-  // other action types...
 }
 
 export interface SetJwtTokenAction {
   type: ActionType.SET_JWT_TOKEN;
   payload: string | null;
+}
+
+export interface SetUserAction {
+  type: ActionType.SET_USER;
+  payload: UserType | null;
 }
 
 export interface SetHallsAction {
@@ -118,6 +123,11 @@ export interface SetOrderAction {
 export const setJwtToken = (token: string | null): SetJwtTokenAction => ({
   type: ActionType.SET_JWT_TOKEN,
   payload: token,
+});
+
+export const setUser = (user: UserType | null): SetUserAction => ({
+  type: ActionType.SET_USER,
+  payload: user,
 });
 
 export const setHalls = (data: HallType[] | null): SetHallsAction => ({

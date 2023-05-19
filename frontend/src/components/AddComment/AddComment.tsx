@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setOrder } from "../../stores/reducers";
-import { AppState, OrderType } from "../../stores/types";
 import { TextField } from "@mui/material";
 import "./AddComment.css";
 
-const AddComment = () => {
+interface AddCommentPropsType {
+  commentary: string | null;
+  handleSubmitComment: (commentary: string | null) => void;
+}
+
+const AddComment = ({
+  commentary,
+  handleSubmitComment,
+}: AddCommentPropsType) => {
   const [formVisible, setFormVisible] = useState<boolean>(false);
-  const [textAreaValue, setTextAreaValue] = useState<string>("");
-  const order: OrderType | null = useSelector((state: AppState) => state.order);
-  const dispatch = useDispatch();
 
   const handleAddComment = () => {
     setFormVisible(true);
@@ -19,14 +21,8 @@ const AddComment = () => {
     setFormVisible(false);
   };
 
-  const handleSubmitComment = () => {
-    if (order) {
-      dispatch(setOrder({ ...order, commentary: textAreaValue }));
-    } else {
-      dispatch(
-        setOrder({ user: null, products: null, commentary: textAreaValue })
-      );
-    }
+  const handleSubmit = () => {
+    handleSubmitComment(commentary);
     setFormVisible(false);
   };
 
@@ -47,20 +43,20 @@ const AddComment = () => {
       {formVisible ? (
         <div className="comment-form-container">
           <TextField
-            value={textAreaValue}
-            onChange={(e) => setTextAreaValue(e.target.value)}
+            value={commentary}
+            onChange={(e) => handleSubmitComment(e.target.value)}
             color="primary"
             fullWidth
             multiline
           />
           <div className="comment-form-actions-container">
             <button onClick={handleCancelComment}>Cancel</button>
-            <button onClick={handleSubmitComment}>Submit</button>
+            <button onClick={handleSubmit}>Submit</button>
           </div>
         </div>
       ) : (
         <button className="sticky-button" onClick={handleAddComment}>
-          {order?.commentary ? "Edit Comment" : "Add Comment"}
+          {commentary ? "Edit Comment" : "Add Comment"}
         </button>
       )}
     </>

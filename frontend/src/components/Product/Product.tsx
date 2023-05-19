@@ -20,7 +20,7 @@ const Product = ({
 }: ProductPropsType) => {
   return (
     <div className="product-container">
-      <img src={imageUrl} />
+      {/* <img src={imageUrl} /> */}
       <div className="product-content">
         <div className="product-title-description">
           <p>{title}</p>
