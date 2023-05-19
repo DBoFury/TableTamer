@@ -10,6 +10,8 @@
   border-radius: 20px;
   overflow-y: scroll;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-message-title {
@@ -19,6 +21,7 @@
 
 .modal-message-content {
   font-size: medium;
+  flex-grow: 1;
 }
 
 .product-amount-container {
