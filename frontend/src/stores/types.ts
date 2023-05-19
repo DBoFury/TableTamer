@@ -41,7 +41,7 @@ export interface ProductType {
 }
 
 export interface ProductOrderItemType {
-  slug: string;
+  product: ProductType;
   amount: number;
 }
 

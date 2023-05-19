@@ -32,37 +32,39 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
     setSelectedCategory(category);
   };
 
-  const findItemBySlug = (slug: string) => {
-    return orderItems?.find((item) => item.slug === slug);
+  const findProduct = (product: ProductType) => {
+    return orderItems?.find((item) => item.product.slug === product.slug);
   };
 
-  const handleItemIncrease = (slug: string) => {
-    const targetItem = findItemBySlug(slug);
+  const handleItemIncrease = (product: ProductType) => {
+    const targetItem = findProduct(product);
     if (targetItem) {
       targetItem.amount += 1;
       const updatedItems = orderItems?.map((item) =>
-        item.slug === slug ? targetItem : item
+        item.product.slug === product.slug ? targetItem : item
       );
       setOrderItems(updatedItems);
     } else {
       if (orderItems) {
-        setOrderItems([...orderItems, { slug: slug, amount: 1 }]);
+        setOrderItems([...orderItems, { product: product, amount: 1 }]);
       } else {
-        setOrderItems([{ slug: slug, amount: 1 }]);
+        setOrderItems([{ product: product, amount: 1 }]);
       }
     }
   };
 
-  const handleItemDecrease = (slug: string) => {
-    const targetItem = findItemBySlug(slug);
+  const handleItemDecrease = (product: ProductType) => {
+    const targetItem = findProduct(product);
     if (targetItem) {
       targetItem.amount -= 1;
       if (targetItem.amount <= 0) {
-        const updatedItems = orderItems?.filter((item) => item.slug !== slug);
+        const updatedItems = orderItems?.filter(
+          (item) => item.product.slug !== product.slug
+        );
         setOrderItems(updatedItems);
       } else {
         const updatedItems = orderItems?.map((item) =>
-          item.slug === slug ? targetItem : item
+          item.product.slug === product.slug ? targetItem : item
         );
         setOrderItems(updatedItems);
       }
@@ -71,6 +73,14 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
 
   const handleSubmitCommentary = (text: string | null) => {
     setCommentary(text);
+  };
+
+  const getTotal = () => {
+    let total = 0;
+    orderItems?.map((item) => {
+      total += item.amount * item.product.price;
+    });
+    return total;
   };
 
   return (
@@ -88,7 +98,10 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
       }}>
       <Fade in={open}>
         <div className="modal-message-container">
-          <div className="modal-message-title">Select Products</div>
+          <div className="modal-message-title-container">
+            <div>Select Products</div>
+            <div>Total: {getTotal()}</div>
+          </div>
           <div className="modal-message-content">
             <ProductCategoriesNavBar
               setSelectedCategory={handleSelectedCategoryChange}
@@ -109,11 +122,11 @@ const ProductsModal: React.FC<ProductsModalProps> = ({ open, onClose }) => {
                       category={product.category}
                     />
                     <div className="product-amount-change">
-                      <button onClick={() => handleItemIncrease(product.slug)}>
+                      <button onClick={() => handleItemIncrease(product)}>
                         +
                       </button>
-                      <p>{findItemBySlug(product.slug)?.amount || 0}</p>
-                      <button onClick={() => handleItemDecrease(product.slug)}>
+                      <p>{findProduct(product)?.amount || 0}</p>
+                      <button onClick={() => handleItemDecrease(product)}>
                         -
                       </button>
                     </div>
