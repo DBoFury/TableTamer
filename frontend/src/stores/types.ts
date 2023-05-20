@@ -49,6 +49,7 @@ export interface OrderType {
   user: UserType | null;
   products: ProductOrderItemType[] | null;
   commentary: string | null;
+  isTakeaway: boolean;
 }
 
 export interface AppState {

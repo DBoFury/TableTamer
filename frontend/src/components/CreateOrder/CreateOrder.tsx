@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AppState, TableType } from "../../stores/types";
 import { setOrder } from "../../stores/reducers";
 import { useSelector, useDispatch } from "react-redux";
-import ProductsModal from "../ProductsModal/ProductsModal";
+import OrderModal from "../OrderModal/OrderModal";
 import "./CreateOrder.css";
 
 const CreateOrder = () => {
@@ -29,7 +29,7 @@ const CreateOrder = () => {
           : "Create Takeaway order"}
       </button>
       {createOrderOpen && (
-        <ProductsModal open={createOrderOpen} onClose={closeProductsModal} />
+        <OrderModal open={createOrderOpen} onClose={closeProductsModal} />
       )}
     </div>
   );
