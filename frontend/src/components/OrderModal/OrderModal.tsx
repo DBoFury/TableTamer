@@ -5,7 +5,6 @@ import {
   ProductType,
   ProductOrderItemType,
   OrderType,
-  UserType,
   TableType,
 } from "../../stores/types";
 import { setOrder } from "../../stores/reducers";
@@ -16,6 +15,7 @@ import Fade from "@mui/material/Fade";
 import ProductSelect from "./ProductSelect/ProductSelect";
 import OrderSummary from "./OrderSummary/OrderSummary";
 import "./OrderModal.css";
+import getOrderTotal from "../../utils/getOrderTotal";
 
 type OrderModalProps = {
   open: boolean;
@@ -35,7 +35,6 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
   const products: ProductType[] | null = useSelector(
     (state: AppState) => state.products
   );
-  const user: UserType | null = useSelector((state: AppState) => state.user);
   const selectedTable: TableType | null = useSelector(
     (state: AppState) => state.selectedTable
   );
@@ -96,18 +95,10 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
     setCommentary(text);
   };
 
-  const getTotal = () => {
-    let total = 0;
-    orderItems?.map((item) => {
-      total += item.amount * item.product.price;
-    });
-    return total;
-  };
-
   const handleNextClick = () => {
     if (orderItems) {
       const order: OrderType = {
-        user: user,
+        id: null,
         products: orderItems,
         commentary: commentary,
         isTakeaway: !!selectedTable,
@@ -138,19 +129,16 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
       <Fade in={open}>
         <div className="modal-container">
           {orderSummary ? (
-            <OrderSummary
-              getTotal={getTotal}
-              handleBackClick={handleBackClick}
-            />
+            <OrderSummary handleBackClick={handleBackClick} />
           ) : (
             <>
               <ProductSelect
+                total={getOrderTotal(orderItems || [])}
                 commentary={commentary}
                 products={products}
                 selectedCategory={selectedCategory}
                 handleSelectedCategoryChange={handleSelectedCategoryChange}
                 findProduct={findProduct}
-                getTotal={getTotal}
                 handleItemIncrease={handleItemIncrease}
                 handleItemDecrease={handleItemDecrease}
                 handleSubmitComment={handleSubmitCommentary}

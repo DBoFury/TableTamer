@@ -46,10 +46,15 @@ export interface ProductOrderItemType {
 }
 
 export interface OrderType {
-  user: UserType | null;
   products: ProductOrderItemType[] | null;
   commentary: string | null;
   isTakeaway: boolean;
+}
+
+export interface FetchedOrderType extends OrderType {
+  id: number;
+  createdAt: string;
+  fullPrice: number;
 }
 
 export interface AppState {
@@ -62,6 +67,7 @@ export interface AppState {
   categories: CategoryType[] | null;
   products: ProductType[] | null;
   order: OrderType | null;
+  orders: FetchedOrderType[] | null;
 }
 
 export enum ActionType {
@@ -74,6 +80,7 @@ export enum ActionType {
   SET_CATEGORIES = "SET_CATEGORIES",
   SET_PRODUCTS = "SET_PRODUCTS",
   SET_ORDER = "SET_ORDER",
+  SET_ORDERS = "SET_ORDERS",
 }
 
 export interface SetJwtTokenAction {
@@ -119,6 +126,11 @@ export interface SetProductsAction {
 export interface SetOrderAction {
   type: ActionType.SET_ORDER;
   payload: OrderType | null;
+}
+
+export interface SetOrdersAction {
+  type: ActionType.SET_ORDERS;
+  payload: FetchedOrderType[] | null;
 }
 
 export const setJwtToken = (token: string | null): SetJwtTokenAction => ({
@@ -174,4 +186,11 @@ export const setProducts = (
 export const setOrder = (order: OrderType | null): SetOrderAction => ({
   type: ActionType.SET_ORDER,
   payload: order,
+});
+
+export const setOrders = (
+  orders: FetchedOrderType[] | null
+): SetOrdersAction => ({
+  type: ActionType.SET_ORDERS,
+  payload: orders,
 });

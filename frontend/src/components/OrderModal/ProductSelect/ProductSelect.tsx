@@ -11,6 +11,7 @@ import CommentForm from "../CommentForm/CommentForm";
 import StickyWrapper from "../../StickyWrapper/StickyWrapper";
 
 type ProductSelectPropsType = {
+  total: number;
   commentary: string;
   handleSubmitComment: (text: string) => void;
   products: ProductType[] | null;
@@ -19,11 +20,11 @@ type ProductSelectPropsType = {
   findProduct: (product: ProductType) => ProductOrderItemType | null;
   handleItemIncrease: (product: ProductType) => void;
   handleItemDecrease: (product: ProductType) => void;
-  getTotal: () => number;
   handleNextClick: () => void;
 };
 
 const ProductSelect = ({
+  total,
   commentary,
   handleSubmitComment,
   products,
@@ -32,7 +33,6 @@ const ProductSelect = ({
   findProduct,
   handleItemIncrease,
   handleItemDecrease,
-  getTotal,
   handleNextClick,
 }: ProductSelectPropsType) => {
   const [formVisible, setFormVisible] = useState<boolean>(false);
@@ -66,7 +66,7 @@ const ProductSelect = ({
     <>
       <div className="title-container">
         <div>Select Products</div>
-        <div>Total: {getTotal()}</div>
+        <div>Total: {total}</div>
       </div>
       <div className="product-select-container">
         <ProductCategoriesNavBar

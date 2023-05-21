@@ -5,13 +5,14 @@ import StickyWrapper from "../../StickyWrapper/StickyWrapper";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import api from "../../API/api";
 import "./OrderSummary.css";
+import getOrderTotal from "../../../utils/getOrderTotal";
+import OrderDetails from "../../OrderDetails/OrderDetails";
 
 interface OrderSummaryPropsType {
   handleBackClick: () => void;
-  getTotal: () => number;
 }
 
-const OrderSummary = ({ getTotal, handleBackClick }: OrderSummaryPropsType) => {
+const OrderSummary = ({ handleBackClick }: OrderSummaryPropsType) => {
   const order: OrderType | null = useSelector((state: AppState) => state.order);
   const jwt: string | null = useSelector((state: AppState) => state.jwtToken);
   const paidCheckBox = useRef();
@@ -39,18 +40,7 @@ const OrderSummary = ({ getTotal, handleBackClick }: OrderSummaryPropsType) => {
   return (
     <div className="order-summary-container">
       <div className="order-summary-title">Order Summary</div>
-      <div className="order-details-container">
-        {order?.products?.map((item, index) => (
-          <div key={index} className="order-detail-container">
-            <p>{item.product.title}</p>
-            <div className="filler" />
-            <p>{item.amount}</p>
-          </div>
-        ))}
-        {order?.commentary && (
-          <div className="order-comment">Comment: {order?.commentary}</div>
-        )}
-      </div>
+      <OrderDetails order={order} />
       <div className="order-paid-container">
         <FormControlLabel
           inputRef={paidCheckBox}
@@ -61,7 +51,7 @@ const OrderSummary = ({ getTotal, handleBackClick }: OrderSummaryPropsType) => {
           control={<Checkbox defaultChecked />}
           label="Paid"
         />
-        <div>Total: {getTotal()}</div>
+        <div>Total: {getOrderTotal(order?.products || [])}</div>
       </div>
 
       <StickyWrapper className="order-actions">
