@@ -16,7 +16,6 @@ const LoginPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   const handleError = (errorMessage: string) => {
-    console.log(errorMessage);
     setError(errorMessage);
   };
 
@@ -37,14 +36,15 @@ const LoginPage = () => {
         const jwt = response.data.accessToken;
         dispatch(setJwtToken(jwt));
         localStorage.setItem("token", jwt);
+        setTimeout(() => {
+          handleClear();
+          navigate("/");
+        }, 200);
       })
       .catch((error) => {
         handleError(error.response.data);
+        handleClear();
       });
-    setTimeout(() => {
-      handleClear();
-      navigate("/");
-    }, 200);
   };
 
   const { fields } = usePinInput({
