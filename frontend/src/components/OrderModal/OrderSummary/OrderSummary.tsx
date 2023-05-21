@@ -22,6 +22,7 @@ const OrderSummary = ({ handleBackClick }: OrderSummaryPropsType) => {
       products: order?.products?.map((item) => {
         return { slug: item.product.slug, amount: item.amount };
       }),
+      commentary: order?.commentary,
       is_takeaway: order?.isTakeaway,
     };
   };

@@ -7,6 +7,7 @@
             "is_fulfilled": true,
             "is_paid": true,
             "is_takeaway": false,
+            "commentary": "",
             "user": 1
         }
     },
@@ -18,6 +19,7 @@
             "is_fulfilled": false,
             "is_paid": false,
             "is_takeaway": true,
+            "commentary": "",
             "user": 1
         }
     },

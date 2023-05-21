@@ -16,6 +16,9 @@ class Order(models.Model):
     is_takeaway = models.BooleanField(verbose_name="Takeaway",
                                       help_text="Is Order been taken as a takeaway")
 
+    commentary = models.TextField(verbose_name="Commentary",
+                                  help_text="Commentary to an Order")
+
     products = models.ManyToManyField(Product, through="OrderItem")
 
     user = models.ForeignKey(User, null=True,
