@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState, FetchedOrderType } from "../../stores/types";
 import ExpandableOrder from "../../components/ExpandableOrder/ExpandableOrder";
 import ReactPaginate from "react-paginate";
+import OrdersSort from "../../components/OrdersSort/OrdersSort";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -71,13 +72,10 @@ const Orders = () => {
 
   return (
     <>
-      <div className="orders-sorting-container">
-        <button onClick={() => handleSortCriteriaClick("id")}>Id</button>
-        <button onClick={() => handleSortCriteriaClick("date")}>Date</button>
-        <button onClick={() => handleSortCriteriaClick("price")}>
-          Full Price
-        </button>
-      </div>
+      <OrdersSort
+        sortCriteria={sortCriteria}
+        handleSortCriteriaClick={handleSortCriteriaClick}
+      />
       <div className="orders-container">
         {currentItems?.map((order) => (
           <ExpandableOrder
