@@ -159,6 +159,7 @@ REST_FRAMEWORK = {
         'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
     ),
+    'DATETIME_FORMAT': "%H:%M:%S %Y-%m-%d",
 }
 
 
