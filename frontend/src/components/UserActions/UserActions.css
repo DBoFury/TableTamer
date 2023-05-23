@@ -1,0 +1,27 @@
+.user-actions-wrapper {
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+.user-actions-container {
+  position: absolute;
+  margin-top: 5px;
+  margin-left: -25px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(54, 54, 54);
+  border-radius: 10%;
+}
+
+.user-actions-container div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: bold;
+  padding: 6px 2px;
+  gap: 0.6rem;
+  color: #fff;
+}

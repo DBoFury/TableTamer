@@ -17,7 +17,7 @@ class UserView(APIView):
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        serializer = UserSerializer(user)
+        serializer = UserSerializer(user, context={"request": request})
         return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
@@ -25,7 +25,7 @@ class UserView(APIView):
             request.user, data=request.data, partial=True)
         if serializer.is_valid():
             user = serializer.save()
-            return Response(UserSerializer(user).data,
+            return Response(UserSerializer(user, context={"request": request}).data,
                             status=status.HTTP_202_ACCEPTED)
         return Response("Wrong data format.", status=status.HTTP_412_PRECONDITION_FAILED)
 

@@ -98,7 +98,6 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
   const handleNextClick = () => {
     if (orderItems) {
       const order: OrderType = {
-        id: null,
         products: orderItems,
         commentary: commentary,
         isTakeaway: !!selectedTable,

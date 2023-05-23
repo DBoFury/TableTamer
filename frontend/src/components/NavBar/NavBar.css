@@ -1,10 +1,7 @@
 .navbar {
-  margin-top: 16px;
-  align-self: flex-start;
   display: flex;
   flex-direction: row;
-  gap: 10px;
-  width: 100%;
+  gap: 1rem;
 }
 
 .navbar a {

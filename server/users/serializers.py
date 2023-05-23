@@ -12,7 +12,8 @@ class UserSerializer(ModelSerializer):
                   "email", "phone_number", "image_url", )
 
     def get_image_url(self, obj):
+        request = self.context.get("request")
         try:
-            return obj.image.url
+            return request.build_absolute_uri(obj.image.url)
         except:
             return ""
