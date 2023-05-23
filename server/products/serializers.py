@@ -31,6 +31,7 @@ class CategorySerializer(ModelSerializer):
 
 
 class ProductSerializer(ModelSerializer):
+    image_url = SerializerMethodField()
     category = CategorySerializer()
 
     class Meta:
@@ -39,3 +40,9 @@ class ProductSerializer(ModelSerializer):
                   "description_ukr", "price", "stock",
                   "image_url", "is_in_stoplist",
                   "slug", "category")
+
+    def get_image_url(self, obj):
+        try:
+            return obj.image.url
+        except:
+            return ""

@@ -14,6 +14,7 @@ export interface UserType {
   lastName: string | null;
   phoneNumber: string | null;
   email: string | null;
+  imageUrl: string | null;
 }
 
 export interface DepartmentType {

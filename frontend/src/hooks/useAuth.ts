@@ -19,8 +19,11 @@ const useAuth = () => {
               Authorization: `Bearer ${jwt}`,
             },
           });
-          const { firstName, lastName, email, phoneNumber } = response.data;
-          dispatch(setUser({ firstName, lastName, email, phoneNumber }));
+          const { firstName, lastName, email, phoneNumber, imageUrl } =
+            response.data;
+          dispatch(
+            setUser({ firstName, lastName, email, phoneNumber, imageUrl })
+          );
           dispatch(setJwtToken(jwt));
           setIsAuthenticated(true);
         } catch {

@@ -31,6 +31,8 @@ class User(AbstractBaseUser, PermissionsMixin):
                                   blank=True, default="")
     last_name = models.CharField(max_length=32,
                                  blank=True, default="")
+    image = models.ImageField(upload_to='images/users/')
+
     date_joined = models.DateTimeField(auto_now_add=True)
 
     is_active = models.BooleanField(default=True)

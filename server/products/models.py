@@ -44,6 +44,7 @@ class Product(models.Model):
     price = models.IntegerField(
         help_text="Product price per 1 unit"
     )
+    image = models.ImageField(upload_to="images/products/")
     image_url = models.URLField(
         null=True,
         blank=True,
