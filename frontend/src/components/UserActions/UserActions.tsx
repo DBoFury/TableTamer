@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { ImExit } from "react-icons/im";
 import { BsFillGearFill } from "react-icons/bs";
 import Expand from "react-expand-animated";
@@ -6,32 +6,34 @@ import { useDispatch } from "react-redux";
 import { setUser, setJwtToken } from "../../stores/reducers";
 import { useNavigate } from "react-router-dom";
 import "./UserActions.css";
-import SettingsModal from "../SettingsModal/SettingsModal";
 
 interface UserActionsPropsType {
   isOpened: boolean;
   closeUserActions: () => void;
+  handleSettingsClick: () => void;
+  avatarRef: React.MutableRefObject<null>;
 }
 
-const UserActions = ({ isOpened, closeUserActions }: UserActionsPropsType) => {
+const UserActions = ({
+  isOpened,
+  closeUserActions,
+  handleSettingsClick,
+  avatarRef,
+}: UserActionsPropsType) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isSettingsModalOpen, setIsSettingsModalOpen] =
-    useState<boolean>(false);
-  const ref = useRef(null);
-
-  console.log("Hello");
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
+    const handleOutsideClick = (event: any) => {
       //@ts-ignore
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (avatarRef.current && !avatarRef.current.contains(event.target)) {
         closeUserActions();
       }
     };
-    document.addEventListener("click", handleClickOutside, true);
+
+    document.addEventListener("click", handleOutsideClick, true);
     return () => {
-      document.removeEventListener("click", handleClickOutside, true);
+      document.removeEventListener("click", handleOutsideClick, true);
     };
   }, [closeUserActions]);
 
@@ -42,17 +44,9 @@ const UserActions = ({ isOpened, closeUserActions }: UserActionsPropsType) => {
     navigate("/login");
   };
 
-  const handleSettingsClick = () => {
-    setIsSettingsModalOpen(true);
-  };
-
-  const handleSettingsModalClose = () => {
-    setIsSettingsModalOpen(false);
-  };
-
   return (
     <>
-      <div ref={ref} className="user-actions-wrapper">
+      <div className="user-actions-wrapper">
         <Expand open={isOpened} className="user-actions-container">
           <div
             onClick={handleSettingsClick}
@@ -66,10 +60,6 @@ const UserActions = ({ isOpened, closeUserActions }: UserActionsPropsType) => {
           </div>
         </Expand>
       </div>
-      <SettingsModal
-        open={isSettingsModalOpen}
-        handleModalClose={handleSettingsModalClose}
-      />
     </>
   );
 };

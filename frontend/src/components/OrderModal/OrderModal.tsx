@@ -9,13 +9,11 @@ import {
 } from "../../stores/types";
 import { setOrder } from "../../stores/reducers";
 import { useDispatch, useSelector } from "react-redux";
-import Backdrop from "@mui/material/Backdrop";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
 import ProductSelect from "./ProductSelect/ProductSelect";
 import OrderSummary from "./OrderSummary/OrderSummary";
-import "./OrderModal.css";
 import getOrderTotal from "../../utils/getOrderTotal";
+import FadingModal from "../FadingModal/FadingModal";
+import "./OrderModal.css";
 
 type OrderModalProps = {
   open: boolean;
@@ -113,41 +111,28 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
   };
 
   return (
-    <Modal
-      aria-labelledby="transition-modal-title"
-      aria-describedby="transition-modal-description"
-      open={open}
-      onClose={handleModalClose}
-      closeAfterTransition
-      slots={{ backdrop: Backdrop }}
-      slotProps={{
-        backdrop: {
-          timeout: 500,
-        },
-      }}>
-      <Fade in={open}>
-        <div className="modal-container">
-          {orderSummary ? (
-            <OrderSummary handleBackClick={handleBackClick} />
-          ) : (
-            <>
-              <ProductSelect
-                total={getOrderTotal(orderItems || [])}
-                commentary={commentary}
-                products={products}
-                selectedCategory={selectedCategory}
-                handleSelectedCategoryChange={handleSelectedCategoryChange}
-                findProduct={findProduct}
-                handleItemIncrease={handleItemIncrease}
-                handleItemDecrease={handleItemDecrease}
-                handleSubmitComment={handleSubmitCommentary}
-                handleNextClick={handleNextClick}
-              />
-            </>
-          )}
-        </div>
-      </Fade>
-    </Modal>
+    <FadingModal open={open} handleModalClose={handleModalClose}>
+      <div className="order-modal-container">
+        {orderSummary ? (
+          <OrderSummary handleBackClick={handleBackClick} />
+        ) : (
+          <>
+            <ProductSelect
+              total={getOrderTotal(orderItems || [])}
+              commentary={commentary}
+              products={products}
+              selectedCategory={selectedCategory}
+              handleSelectedCategoryChange={handleSelectedCategoryChange}
+              findProduct={findProduct}
+              handleItemIncrease={handleItemIncrease}
+              handleItemDecrease={handleItemDecrease}
+              handleSubmitComment={handleSubmitCommentary}
+              handleNextClick={handleNextClick}
+            />
+          </>
+        )}
+      </div>
+    </FadingModal>
   );
 };
 

@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { AppState, UserType } from "../../stores/types";
 import UserActions from "../UserActions/UserActions";
 import "./UserAvatar.css";
+import SettingsModal from "../SettingsModal/SettingsModal";
 
 const UserAvatar = () => {
+  const avatarRef = useRef(null);
   const [isUserActionsOpen, setIsUserActionsOpen] = useState<boolean>(false);
+  const [isUserSettingsModalOpen, setIsUserSettingsModalOpen] =
+    useState<boolean>(false);
   const user: UserType | null = useSelector((state: AppState) => state.user);
 
   let initials = "";
@@ -22,22 +26,28 @@ const UserAvatar = () => {
     initials = user?.email.charAt(0);
   }
 
-  const handleAvatarClick = (isOpened: boolean) => {
-    setIsUserActionsOpen(!isOpened);
+  const handleAvatarClick = () => {
+    setIsUserActionsOpen(!isUserActionsOpen);
   };
 
   return (
-    <div
-      onClick={() => handleAvatarClick(isUserActionsOpen)}
-      className="user-avatar-container">
-      {user?.imageUrl ? (
-        <img src={user?.imageUrl || ""} />
-      ) : (
-        <div className="round-name-avatar">{initials}</div>
-      )}
+    <div className="user-avatar-container">
+      <div ref={avatarRef} onClick={handleAvatarClick}>
+        {user?.imageUrl ? (
+          <img src={user?.imageUrl || ""} />
+        ) : (
+          <div className="round-name-avatar">{initials}</div>
+        )}
+      </div>
       <UserActions
-        closeUserActions={() => handleAvatarClick(true)}
         isOpened={isUserActionsOpen}
+        closeUserActions={() => setIsUserActionsOpen(false)}
+        handleSettingsClick={() => setIsUserSettingsModalOpen(true)}
+        avatarRef={avatarRef}
+      />
+      <SettingsModal
+        open={isUserSettingsModalOpen}
+        handleModalClose={() => setIsUserSettingsModalOpen(false)}
       />
     </div>
   );
