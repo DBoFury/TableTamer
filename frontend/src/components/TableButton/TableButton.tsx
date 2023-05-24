@@ -1,5 +1,7 @@
 import { TableType } from "../../stores/types";
-import TableImage from "../../assets/table.png";
+import { IconButton, Typography } from "@mui/material";
+import { MdTableRestaurant } from "react-icons/md";
+import { useWindowWidth } from "@react-hook/window-size";
 import "./TableButton.css";
 
 interface TableButtonPropsType {
@@ -13,20 +15,27 @@ const TableButton = ({
   table,
   handleTableClick,
 }: TableButtonPropsType) => {
+  const width = useWindowWidth();
+
   const handleClicK = () => {
     handleTableClick(table);
   };
 
   return (
-    <button
-      className="image-button"
-      style={{
-        background: isSelected ? "blue" : "none",
-      }}
-      onClick={handleClicK}>
-      <img src={TableImage} />
-      Table number: {table.tableNumber}
-    </button>
+    <div className="table-button">
+      <IconButton
+        onClick={handleClicK}
+        color={isSelected ? "primary" : "default"}
+        aria-label="Table">
+        <MdTableRestaurant
+          size={width < 768 ? 100 : 200}
+          style={{ fontSize: width < 768 ? "1rem" : "1.5rem" }}
+        />
+      </IconButton>
+      <Typography sx={{ fontWeight: "bold" }}>
+        Table number {table.tableNumber}
+      </Typography>
+    </div>
   );
 };
 

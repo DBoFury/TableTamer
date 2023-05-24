@@ -1,4 +1,5 @@
 import { HallType } from "../../../stores/types";
+import { Button } from "@mui/material";
 import "./HallsNavBar.css";
 
 interface HallsNavBarPropsType {
@@ -15,15 +16,17 @@ const HallsNavBar = ({
   return (
     <div className="hall-nav-container">
       {halls?.map((hall: HallType) => (
-        <button
+        <Button
           key={hall.title}
           onClick={() => handleHallClick(hall)}
-          style={{
+          sx={{
+            fontWeight: "bold",
+            color: selectedHall?.title === hall.title ? "#ffffff" : "#545e6f",
             backgroundColor:
-              selectedHall?.title === hall.title ? "lightblue" : "white",
+              selectedHall?.title === hall.title ? "#5c6ac4" : "",
           }}>
           {hall.title}
-        </button>
+        </Button>
       ))}
     </div>
   );

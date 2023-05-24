@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AppState, TableType } from "../../stores/types";
 import { setOrder } from "../../stores/reducers";
 import { useSelector, useDispatch } from "react-redux";
+import { Button } from "@mui/material";
 import OrderModal from "../OrderModal/OrderModal";
 import "./CreateOrder.css";
 
@@ -23,11 +24,17 @@ const CreateOrder = () => {
 
   return (
     <div className="create-order-container">
-      <button onClick={handleCreateOrderClick}>
+      <Button
+        sx={{
+          fontWeight: "bold",
+          color: "#ffffff",
+          backgroundColor: "#5c6ac4",
+        }}
+        onClick={handleCreateOrderClick}>
         {!!selectedTable
           ? `Create order for table ${selectedTable?.tableNumber}`
           : "Create Takeaway order"}
-      </button>
+      </Button>
       {createOrderOpen && (
         <OrderModal open={createOrderOpen} onClose={closeProductsModal} />
       )}
