@@ -28,6 +28,9 @@ const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
+    resetState: (state) => {
+      state = initialState;
+    },
     setJwtToken: (state, action: PayloadAction<string | null>) => {
       state.jwtToken = action.payload;
     },
@@ -62,6 +65,7 @@ const appSlice = createSlice({
 });
 
 export const {
+  resetState,
   setJwtToken,
   setUser,
   setHalls,

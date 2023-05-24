@@ -3,7 +3,7 @@ import { ImExit } from "react-icons/im";
 import { BsFillGearFill } from "react-icons/bs";
 import Expand from "react-expand-animated";
 import { useDispatch } from "react-redux";
-import { setUser, setJwtToken } from "../../stores/reducers";
+import { resetState } from "../../stores/reducers";
 import { useNavigate } from "react-router-dom";
 import "./UserActions.css";
 
@@ -39,8 +39,7 @@ const UserActions = ({
 
   const handleLoginClick = () => {
     localStorage.removeItem("token");
-    dispatch(setJwtToken(null));
-    dispatch(setUser(null));
+    dispatch(resetState());
     navigate("/login");
   };
 

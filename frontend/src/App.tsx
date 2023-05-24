@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<NotFound />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route
           path="/"
           element={
@@ -19,9 +19,9 @@ function App() {
             </ProtectedRoute>
           }>
           <Route path="/" element={<Home />} />
-          <Route path="orders" element={<Orders />} />
+          <Route path="/orders" element={<Orders />} />
         </Route>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

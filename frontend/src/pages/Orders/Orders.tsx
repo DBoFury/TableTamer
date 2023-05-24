@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../components/API/api";
-import { setOrders } from "../../stores/reducers";
+import { resetState, setOrders } from "../../stores/reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState, FetchedOrderType } from "../../stores/types";
 import ExpandableOrder from "../../components/ExpandableOrder/ExpandableOrder";
@@ -9,6 +10,7 @@ import OrdersSort from "../../components/OrdersSort/OrdersSort";
 
 const Orders = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const jwt: string | null = useSelector((state: AppState) => state.jwtToken);
   const orders: FetchedOrderType[] | null = useSelector(
     (state: AppState) => state.orders
@@ -34,7 +36,9 @@ const Orders = () => {
       const fetchedOrders: FetchedOrderType[] = response.data;
       dispatch(setOrders(fetchedOrders));
     } catch {
-      dispatch(setOrders([]));
+      localStorage.removeItem("token");
+      dispatch(resetState());
+      navigate("/login");
     }
   };
 

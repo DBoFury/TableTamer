@@ -72,6 +72,7 @@ export interface AppState {
 }
 
 export enum ActionType {
+  RESET_STATE = "RESET_STATE",
   SET_JWT_TOKEN = "SET_JWT_TOKEN",
   SET_USER = "SET_USER",
   SET_HALLS = "SET_HALLS",
@@ -82,6 +83,10 @@ export enum ActionType {
   SET_PRODUCTS = "SET_PRODUCTS",
   SET_ORDER = "SET_ORDER",
   SET_ORDERS = "SET_ORDERS",
+}
+
+export interface ResetStateAction {
+  type: ActionType.RESET_STATE;
 }
 
 export interface SetJwtTokenAction {
@@ -133,6 +138,10 @@ export interface SetOrdersAction {
   type: ActionType.SET_ORDERS;
   payload: FetchedOrderType[] | null;
 }
+
+export const resetState = (): ResetStateAction => ({
+  type: ActionType.RESET_STATE,
+});
 
 export const setJwtToken = (token: string | null): SetJwtTokenAction => ({
   type: ActionType.SET_JWT_TOKEN,
