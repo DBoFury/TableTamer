@@ -119,6 +119,7 @@ const OrderModal = ({ open, closeOrderModal }: OrderModalProps) => {
             transition: "transform 0.6s ease-in",
             pointerEvents: orderSummary ? "none" : "auto",
             width: orderSummary ? "0%" : "100%",
+            overflow: orderSummary ? "hidden" : "",
           }}
           total={getOrderTotal(orderItems || [])}
           commentary={commentary}
@@ -138,6 +139,7 @@ const OrderModal = ({ open, closeOrderModal }: OrderModalProps) => {
             transition: "transform 0.6s ease-in",
             pointerEvents: orderSummary ? "auto" : "none",
             width: orderSummary ? "100%" : "0%",
+            overflow: orderSummary ? "" : "hidden",
           }}
           closeOrderModal={closeOrderModal}
           handleBackClick={handleBackClick}
