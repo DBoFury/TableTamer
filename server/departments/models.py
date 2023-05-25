@@ -12,6 +12,11 @@ class Department(models.Model):
         verbose_name="Department (UKR)",
         help_text="Department name in Ukrainian"
     )
+    department_url = models.URLField(
+        default="",
+        verbose_name="Department URL",
+        help_text="URL of a department to send a receipt"
+    )
 
     def __str__(self) -> str:
         return self.title

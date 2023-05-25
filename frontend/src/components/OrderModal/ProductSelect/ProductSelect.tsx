@@ -6,9 +6,9 @@ import {
 import { useState, useEffect } from "react";
 import Product from "../../Product/Product";
 import ProductCategoriesNavBar from "../../ProductCategoriesNavBar/ProductCategoriesNavBar";
-import "./ProductSelect.css";
 import CommentForm from "../CommentForm/CommentForm";
 import StickyWrapper from "../../StickyWrapper/StickyWrapper";
+import "./ProductSelect.css";
 
 type ProductSelectPropsType = {
   total: number;
@@ -53,7 +53,7 @@ const ProductSelect = ({
   useEffect(() => {
     if (formVisible) {
       setTimeout(() => {
-        const element = document.querySelector(".modal-container");
+        const element = document.querySelector(".order-modal-container");
         element?.scrollTo({
           top: element?.scrollHeight,
           behavior: "smooth",
@@ -70,6 +70,7 @@ const ProductSelect = ({
       </div>
       <div className="product-select-container">
         <ProductCategoriesNavBar
+          selectedCategory={selectedCategory}
           setSelectedCategory={handleSelectedCategoryChange}
         />
         <div className="products-container">
@@ -86,7 +87,6 @@ const ProductSelect = ({
                     imageUrl={product.imageUrl}
                     price={product.price}
                     isInStoplist={product.isInStoplist}
-                    category={product.category}
                   />
                   <div className="product-amount-change">
                     <button onClick={() => handleItemIncrease(product)}>

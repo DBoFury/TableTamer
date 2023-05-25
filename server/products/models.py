@@ -47,19 +47,9 @@ class Product(models.Model):
     image = models.ImageField(default="",
                               upload_to="images/products/",
                               blank=True)
-    image_url = models.URLField(
-        null=True,
-        blank=True,
-        verbose_name="Image URL",
-        help_text="Link to an image of a product")
     slug = models.SlugField(
         verbose_name="Slug",
         help_text="A short label of a product to use in URL")
-    is_in_stoplist = models.BooleanField(
-        default=False,
-        verbose_name="Is in Stop List",
-        help_text="States if a product item in the Stop List"
-    )
     stock = models.IntegerField(
         null=True,
         blank=True,
@@ -68,6 +58,11 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, help_text="Category of a product",
         on_delete=models.CASCADE)
+    is_in_stoplist = models.BooleanField(
+        default=False,
+        verbose_name="Is in Stop List",
+        help_text="States if a product item in the Stop List"
+    )
 
     def __str__(self) -> str:
         return self.title

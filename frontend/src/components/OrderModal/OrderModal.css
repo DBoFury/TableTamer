@@ -10,6 +10,32 @@
   border-radius: 20px;
   overflow-y: scroll;
   overflow-x: hidden;
+  overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
+}
+
+.order-modal-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.order-modal-container::-webkit-scrollbar-track {
+  background: none;
+}
+
+.order-modal-container::-webkit-scrollbar-thumb {
+  background: gray;
+  border-right: 4px white solid;
+  background-clip: padding-box;
+  border-radius: 4px;
+}
+
+.order-modal-container::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 20px;
+}
+
+.order-modal-container::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 20px;
 }

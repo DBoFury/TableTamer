@@ -1,4 +1,4 @@
-import { CategoryType } from "../../stores/types";
+import { Typography } from "@mui/material";
 import "./Product.css";
 
 interface ProductPropsType {
@@ -7,7 +7,6 @@ interface ProductPropsType {
   imageUrl: string;
   price: number;
   isInStoplist: boolean;
-  category: CategoryType;
 }
 
 const Product = ({
@@ -16,18 +15,25 @@ const Product = ({
   imageUrl,
   price,
   isInStoplist,
-  category,
 }: ProductPropsType) => {
   return (
     <div className="product-container">
-      {/* <img src={imageUrl} /> */}
+      <img src={imageUrl} />
       <div className="product-content">
         <div className="product-title-description">
-          <p>{title}</p>
-          <p>{description}</p>
+          <Typography>
+            <b>Title: </b>
+            {title}
+          </Typography>
+          <Typography>
+            <b>Description: </b>
+            {description}
+          </Typography>
         </div>
-        <p>{price}</p>
-        <p>{category.title}</p>
+        <Typography>
+          <b>Price per unit: </b>
+          {price}
+        </Typography>
       </div>
     </div>
   );
