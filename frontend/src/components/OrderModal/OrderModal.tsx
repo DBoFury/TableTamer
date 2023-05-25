@@ -17,10 +17,10 @@ import "./OrderModal.css";
 
 type OrderModalProps = {
   open: boolean;
-  onClose: () => void;
+  closeOrderModal: () => void;
 };
 
-const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
+const OrderModal: React.FC<OrderModalProps> = ({ open, closeOrderModal }) => {
   const dispatch = useDispatch();
   const [orderSummary, setOrderSummary] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoryType | null>(
@@ -38,8 +38,7 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
   );
 
   const handleModalClose = () => {
-    dispatch(setOrder(null));
-    onClose();
+    closeOrderModal();
   };
 
   const handleSelectedCategoryChange = (category: CategoryType | null) => {
@@ -98,7 +97,7 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
       const order: OrderType = {
         products: orderItems,
         commentary: commentary,
-        isTakeaway: !!selectedTable,
+        isTakeaway: !!!selectedTable,
       };
       dispatch(setOrder(order));
       setOrderSummary(true);
@@ -114,7 +113,10 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
     <FadingModal open={open} handleModalClose={handleModalClose}>
       <div className="order-modal-container">
         {orderSummary ? (
-          <OrderSummary handleBackClick={handleBackClick} />
+          <OrderSummary
+            closeOrderModal={closeOrderModal}
+            handleBackClick={handleBackClick}
+          />
         ) : (
           <ProductSelect
             total={getOrderTotal(orderItems || [])}

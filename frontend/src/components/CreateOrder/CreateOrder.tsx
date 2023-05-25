@@ -17,7 +17,7 @@ const CreateOrder = () => {
     setCreateOrderOpen(true);
   };
 
-  const closeProductsModal = () => {
+  const closeOrderModal = () => {
     setCreateOrderOpen(false);
     dispatch(setOrder(null));
   };
@@ -36,7 +36,7 @@ const CreateOrder = () => {
           : "Create Takeaway order"}
       </Button>
       {createOrderOpen && (
-        <OrderModal open={createOrderOpen} onClose={closeProductsModal} />
+        <OrderModal open={createOrderOpen} closeOrderModal={closeOrderModal} />
       )}
     </div>
   );

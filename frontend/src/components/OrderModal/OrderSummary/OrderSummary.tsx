@@ -10,9 +10,13 @@ import OrderDetails from "../../OrderDetails/OrderDetails";
 
 interface OrderSummaryPropsType {
   handleBackClick: () => void;
+  closeOrderModal: () => void;
 }
 
-const OrderSummary = ({ handleBackClick }: OrderSummaryPropsType) => {
+const OrderSummary = ({
+  handleBackClick,
+  closeOrderModal,
+}: OrderSummaryPropsType) => {
   const order: OrderType | null = useSelector((state: AppState) => state.order);
   const jwt: string | null = useSelector((state: AppState) => state.jwtToken);
   const paidCheckBox = useRef();
@@ -35,7 +39,10 @@ const OrderSummary = ({ handleBackClick }: OrderSummaryPropsType) => {
           "Content-Type": "application/json",
         },
       })
-      .then((response) => console.log(response.data));
+      .then((response) => {
+        console.log(response.data);
+        closeOrderModal();
+      });
   };
 
   return (
