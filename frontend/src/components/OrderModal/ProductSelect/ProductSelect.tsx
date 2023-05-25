@@ -65,82 +65,92 @@ const ProductSelect = ({
   }, [formVisible]);
 
   return (
-    <>
+    <div className="product-select-container">
       <div className="title-container">
-        <div>Select Products</div>
-        <div>Total: {total}</div>
+        <Typography
+          sx={{
+            fontSize: 28,
+            fontWeight: "bold",
+          }}>
+          Select Products
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: 28,
+            fontWeight: "bold",
+          }}>
+          Total: {total}
+        </Typography>
       </div>
-      <div className="product-select-container">
-        <ProductCategoriesNavBar
-          selectedCategory={selectedCategory}
-          setSelectedCategory={handleSelectedCategoryChange}
-        />
-        <div className="products-container">
-          {products?.map((product) => {
-            if (
-              !selectedCategory ||
-              product.category.title === selectedCategory?.title
-            ) {
-              return (
-                <div key={product.slug} className="product-amount-container">
-                  <Product
-                    title={product.title}
-                    description={product.description}
-                    imageUrl={product.imageUrl}
-                    price={product.price}
-                    isInStoplist={product.isInStoplist}
-                  />
-                  <div className="product-amount-change">
-                    <IconButton
-                      sx={{ color: "green", background: "#D0D0D0" }}
-                      onClick={() => handleItemIncrease(product)}>
-                      <HiPlusSm />
-                    </IconButton>
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      {findProduct(product)?.amount || 0}
-                    </Typography>
-                    <IconButton
-                      sx={{ color: "red", background: "#D0D0D0" }}
-                      onClick={() => handleItemDecrease(product)}>
-                      <HiMinusSm />
-                    </IconButton>
-                  </div>
+      <ProductCategoriesNavBar
+        selectedCategory={selectedCategory}
+        setSelectedCategory={handleSelectedCategoryChange}
+      />
+      <div className="products-container">
+        {products?.map((product) => {
+          if (
+            !selectedCategory ||
+            product.category.title === selectedCategory?.title
+          ) {
+            return (
+              <div key={product.slug} className="product-amount-container">
+                <Product
+                  title={product.title}
+                  description={product.description}
+                  imageUrl={product.imageUrl}
+                  price={product.price}
+                  isInStoplist={product.isInStoplist}
+                />
+                <div className="product-amount-change">
+                  <IconButton
+                    sx={{ color: "green", background: "#D0D0D0" }}
+                    onClick={() => handleItemIncrease(product)}>
+                    <HiPlusSm />
+                  </IconButton>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {findProduct(product)?.amount || 0}
+                  </Typography>
+                  <IconButton
+                    sx={{ color: "red", background: "#D0D0D0" }}
+                    onClick={() => handleItemDecrease(product)}>
+                    <HiMinusSm />
+                  </IconButton>
                 </div>
-              );
-            }
-          })}
-        </div>
-
-        {formVisible ? (
-          <CommentForm
-            commentary={commentary}
-            handleSubmit={handleSubmit}
-            handleCancel={handleCancel}
-          />
-        ) : (
-          <StickyWrapper className="actions-container">
-            <Button
-              sx={{
-                fontWeight: "bold",
-                color: "#ffffff",
-                backgroundColor: "#5c6ac4",
-              }}
-              onClick={handleAddComment}>
-              {commentary ? "Edit Comment" : "Add Comment"}
-            </Button>
-            <Button
-              sx={{
-                fontWeight: "bold",
-                color: "#ffffff",
-                backgroundColor: "#5c6ac4",
-              }}
-              onClick={handleNextClick}>
-              Next
-            </Button>
-          </StickyWrapper>
-        )}
+              </div>
+            );
+          }
+        })}
       </div>
-    </>
+
+      {formVisible ? (
+        <CommentForm
+          commentary={commentary}
+          handleSubmit={handleSubmit}
+          handleCancel={handleCancel}
+        />
+      ) : (
+        <StickyWrapper className="actions-container">
+          <Button
+            sx={{
+              fontWeight: "bold",
+              color: "#ffffff",
+              backgroundColor: "#5c6ac4",
+            }}
+            onClick={handleAddComment}>
+            {commentary ? "Edit Comment" : "Add Comment"}
+          </Button>
+          <Button
+            sx={{
+              fontWeight: "bold",
+              color: "#ffffff",
+              backgroundColor: "#5c6ac4",
+            }}
+            onClick={handleNextClick}>
+            Next
+          </Button>
+        </StickyWrapper>
+      )}
+    </div>
   );
 };
 
