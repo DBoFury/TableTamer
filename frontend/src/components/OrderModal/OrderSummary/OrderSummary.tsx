@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, HTMLProps } from "react";
 import { AppState, OrderType } from "../../../stores/types";
 import { useSelector } from "react-redux";
 import StickyWrapper from "../../StickyWrapper/StickyWrapper";
@@ -8,12 +8,13 @@ import "./OrderSummary.css";
 import getOrderTotal from "../../../utils/getOrderTotal";
 import OrderDetails from "../../OrderDetails/OrderDetails";
 
-interface OrderSummaryPropsType {
+interface OrderSummaryPropsType extends HTMLProps<HTMLDivElement> {
   handleBackClick: () => void;
   closeOrderModal: () => void;
 }
 
 const OrderSummary = ({
+  style,
   handleBackClick,
   closeOrderModal,
 }: OrderSummaryPropsType) => {
@@ -46,7 +47,7 @@ const OrderSummary = ({
   };
 
   return (
-    <div className="order-summary-container">
+    <div className="order-summary-container" style={style}>
       <Typography
         sx={{
           fontSize: 28,

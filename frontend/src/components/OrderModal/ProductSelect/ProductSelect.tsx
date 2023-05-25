@@ -5,14 +5,14 @@ import {
 } from "../../../stores/types";
 import { Button, IconButton, Typography } from "@mui/material";
 import { HiPlusSm, HiMinusSm } from "react-icons/hi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, HTMLProps } from "react";
 import Product from "../../Product/Product";
 import ProductCategoriesNavBar from "../../ProductCategoriesNavBar/ProductCategoriesNavBar";
 import CommentForm from "../CommentForm/CommentForm";
 import StickyWrapper from "../../StickyWrapper/StickyWrapper";
 import "./ProductSelect.css";
 
-type ProductSelectPropsType = {
+interface ProductSelectPropsType extends HTMLProps<HTMLDivElement> {
   total: number;
   commentary: string;
   handleSubmitCommentary: (text: string) => void;
@@ -23,9 +23,10 @@ type ProductSelectPropsType = {
   handleItemIncrease: (product: ProductType) => void;
   handleItemDecrease: (product: ProductType) => void;
   handleNextClick: () => void;
-};
+}
 
 const ProductSelect = ({
+  style,
   total,
   commentary,
   handleSubmitCommentary,
@@ -65,7 +66,7 @@ const ProductSelect = ({
   }, [formVisible]);
 
   return (
-    <div className="product-select-container">
+    <div className="product-select-container" style={style}>
       <div className="title-container">
         <Typography
           sx={{

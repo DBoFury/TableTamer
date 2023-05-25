@@ -20,7 +20,7 @@ type OrderModalProps = {
   closeOrderModal: () => void;
 };
 
-const OrderModal: React.FC<OrderModalProps> = ({ open, closeOrderModal }) => {
+const OrderModal = ({ open, closeOrderModal }: OrderModalProps) => {
   const dispatch = useDispatch();
   const [orderSummary, setOrderSummary] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoryType | null>(
@@ -112,25 +112,36 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, closeOrderModal }) => {
   return (
     <FadingModal open={open} handleModalClose={handleModalClose}>
       <div className="order-modal-container">
-        {orderSummary ? (
-          <OrderSummary
-            closeOrderModal={closeOrderModal}
-            handleBackClick={handleBackClick}
-          />
-        ) : (
-          <ProductSelect
-            total={getOrderTotal(orderItems || [])}
-            commentary={commentary}
-            products={products}
-            selectedCategory={selectedCategory}
-            handleSelectedCategoryChange={handleSelectedCategoryChange}
-            findProduct={findProduct}
-            handleItemIncrease={handleItemIncrease}
-            handleItemDecrease={handleItemDecrease}
-            handleSubmitCommentary={handleSubmitCommentary}
-            handleNextClick={handleNextClick}
-          />
-        )}
+        <ProductSelect
+          style={{
+            opacity: orderSummary ? 0 : 1,
+            transform: `translateX(${orderSummary ? -100 : 0}%)`,
+            transition: "transform 0.6s ease-in",
+            pointerEvents: orderSummary ? "none" : "auto",
+            width: orderSummary ? "0%" : "100%",
+          }}
+          total={getOrderTotal(orderItems || [])}
+          commentary={commentary}
+          products={products}
+          selectedCategory={selectedCategory}
+          handleSelectedCategoryChange={handleSelectedCategoryChange}
+          findProduct={findProduct}
+          handleItemIncrease={handleItemIncrease}
+          handleItemDecrease={handleItemDecrease}
+          handleSubmitCommentary={handleSubmitCommentary}
+          handleNextClick={handleNextClick}
+        />
+        <OrderSummary
+          style={{
+            opacity: orderSummary ? 1 : 0,
+            transform: `translateX(${orderSummary ? 0 : 100}%)`,
+            transition: "transform 0.6s ease-in",
+            pointerEvents: orderSummary ? "auto" : "none",
+            width: orderSummary ? "100%" : "0%",
+          }}
+          closeOrderModal={closeOrderModal}
+          handleBackClick={handleBackClick}
+        />
       </div>
     </FadingModal>
   );
