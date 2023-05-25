@@ -32,7 +32,9 @@ const TableButton = ({
           style={{ fontSize: width < 768 ? "1rem" : "1.5rem" }}
         />
       </IconButton>
-      <Typography sx={{ fontWeight: "bold" }}>
+      <Typography
+        color={isSelected ? "primary" : "grey"}
+        sx={{ fontWeight: "bold" }}>
         Table number {table.tableNumber}
       </Typography>
     </div>
