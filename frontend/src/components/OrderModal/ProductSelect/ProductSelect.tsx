@@ -3,6 +3,8 @@ import {
   ProductType,
   ProductOrderItemType,
 } from "../../../stores/types";
+import { Button, IconButton, Typography } from "@mui/material";
+import { HiPlusSm, HiMinusSm } from "react-icons/hi";
 import { useState, useEffect } from "react";
 import Product from "../../Product/Product";
 import ProductCategoriesNavBar from "../../ProductCategoriesNavBar/ProductCategoriesNavBar";
@@ -13,7 +15,7 @@ import "./ProductSelect.css";
 type ProductSelectPropsType = {
   total: number;
   commentary: string;
-  handleSubmitComment: (text: string) => void;
+  handleSubmitCommentary: (text: string) => void;
   products: ProductType[] | null;
   selectedCategory: CategoryType | null;
   handleSelectedCategoryChange: (category: CategoryType | null) => void;
@@ -26,7 +28,7 @@ type ProductSelectPropsType = {
 const ProductSelect = ({
   total,
   commentary,
-  handleSubmitComment,
+  handleSubmitCommentary,
   products,
   selectedCategory,
   handleSelectedCategoryChange,
@@ -41,12 +43,12 @@ const ProductSelect = ({
     setFormVisible(true);
   };
 
-  const handleCancel = () => {
+  const handleSubmit = (text: string) => {
+    handleSubmitCommentary(text);
     setFormVisible(false);
   };
 
-  const handleSubmit = () => {
-    handleSubmitComment(commentary);
+  const handleCancel = () => {
     setFormVisible(false);
   };
 
@@ -89,13 +91,19 @@ const ProductSelect = ({
                     isInStoplist={product.isInStoplist}
                   />
                   <div className="product-amount-change">
-                    <button onClick={() => handleItemIncrease(product)}>
-                      +
-                    </button>
-                    <p>{findProduct(product)?.amount || 0}</p>
-                    <button onClick={() => handleItemDecrease(product)}>
-                      -
-                    </button>
+                    <IconButton
+                      sx={{ color: "green", background: "#D0D0D0" }}
+                      onClick={() => handleItemIncrease(product)}>
+                      <HiPlusSm />
+                    </IconButton>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      {findProduct(product)?.amount || 0}
+                    </Typography>
+                    <IconButton
+                      sx={{ color: "red", background: "#D0D0D0" }}
+                      onClick={() => handleItemDecrease(product)}>
+                      <HiMinusSm />
+                    </IconButton>
                   </div>
                 </div>
               );
@@ -106,16 +114,29 @@ const ProductSelect = ({
         {formVisible ? (
           <CommentForm
             commentary={commentary}
-            handleSubmitComment={handleSubmitComment}
             handleSubmit={handleSubmit}
             handleCancel={handleCancel}
           />
         ) : (
           <StickyWrapper className="actions-container">
-            <button onClick={handleNextClick}>Next</button>
-            <button onClick={handleAddComment}>
+            <Button
+              sx={{
+                fontWeight: "bold",
+                color: "#ffffff",
+                backgroundColor: "#5c6ac4",
+              }}
+              onClick={handleAddComment}>
               {commentary ? "Edit Comment" : "Add Comment"}
-            </button>
+            </Button>
+            <Button
+              sx={{
+                fontWeight: "bold",
+                color: "#ffffff",
+                backgroundColor: "#5c6ac4",
+              }}
+              onClick={handleNextClick}>
+              Next
+            </Button>
           </StickyWrapper>
         )}
       </div>

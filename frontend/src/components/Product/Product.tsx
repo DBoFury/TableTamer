@@ -18,7 +18,7 @@ const Product = ({
 }: ProductPropsType) => {
   return (
     <div className="product-container">
-      <img src={imageUrl} />
+      {imageUrl && <img src={imageUrl} />}
       <div className="product-content">
         <div className="product-title-description">
           <Typography>

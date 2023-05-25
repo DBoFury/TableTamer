@@ -1,31 +1,46 @@
-import { TextField } from "@mui/material";
+import { useRef } from "react";
+import { Button, TextField } from "@mui/material";
 import "./CommentForm.css";
 
 interface CommentFormPropsType {
   commentary: string;
-  handleSubmitComment: (text: string) => void;
+  handleSubmit: (text: string) => void;
   handleCancel: () => void;
-  handleSubmit: () => void;
 }
 
 const CommentForm = ({
   commentary,
-  handleSubmitComment,
   handleCancel,
   handleSubmit,
 }: CommentFormPropsType) => {
+  const commentaryRef = useRef<HTMLInputElement | null>(null);
+
   return (
     <div className="comment-form-container">
       <TextField
-        value={commentary}
-        onChange={(e) => handleSubmitComment(e.target.value)}
+        inputRef={commentaryRef}
+        defaultValue={commentary}
         color="primary"
         fullWidth
         multiline
       />
       <div className="comment-form-actions-container">
-        <button onClick={handleCancel}>Cancel</button>
-        <button onClick={handleSubmit}>Submit</button>
+        <Button
+          sx={{
+            fontWeight: "bold",
+          }}
+          onClick={handleCancel}>
+          Cancel
+        </Button>
+        <Button
+          sx={{
+            fontWeight: "bold",
+            color: "#ffffff",
+            backgroundColor: "#5c6ac4",
+          }}
+          onClick={() => handleSubmit(commentaryRef.current?.value || "")}>
+          Submit
+        </Button>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { OrderType } from "../../stores/types";
+import { Typography } from "@mui/material";
 import "./OrderDetails.css";
 
 interface OrderDetailsPropsType {
@@ -10,13 +11,21 @@ const OrderDetails = ({ order }: OrderDetailsPropsType) => {
     <div className="order-details-container">
       {order?.products?.map((item, index) => (
         <div key={index} className="order-detail-container">
-          <p>{item.product.title}</p>
+          <Typography sx={{ fontWeight: "bold" }}>
+            {item.product.title}
+          </Typography>
           <div className="filler" />
-          <p>{item.amount}</p>
+          <Typography sx={{ fontWeight: "bold" }}>{item.amount}</Typography>
         </div>
       ))}
       {order?.commentary && (
-        <div className="order-comment">Comment: {order?.commentary}</div>
+        <Typography
+          sx={{
+            marginTop: "20px",
+          }}>
+          <b>Comment: </b>
+          {order?.commentary}
+        </Typography>
       )}
     </div>
   );

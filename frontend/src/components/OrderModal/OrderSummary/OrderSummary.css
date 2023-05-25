@@ -6,12 +6,6 @@
   justify-content: center;
 }
 
-.order-summary-title {
-  font-weight: bold;
-  font-size: large;
-  padding-bottom: 10px;
-}
-
 .order-details-container {
   flex-grow: 1;
   display: flex;
@@ -24,7 +18,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   font-weight: bold;
   font-size: large;
@@ -34,5 +28,10 @@
 
 .order-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.order-actions button {
+  padding: 6px 20px;
 }

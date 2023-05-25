@@ -8,4 +8,9 @@
   display: flex;
   flex-direction: row;
   align-self: flex-end;
+  gap: 10px;
+}
+
+.comment-form-actions-container button {
+  padding: 4px 10px;
 }

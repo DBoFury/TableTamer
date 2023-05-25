@@ -94,7 +94,7 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
   };
 
   const handleNextClick = () => {
-    if (orderItems) {
+    if (orderItems && orderItems.length > 0) {
       const order: OrderType = {
         products: orderItems,
         commentary: commentary,
@@ -116,20 +116,18 @@ const OrderModal: React.FC<OrderModalProps> = ({ open, onClose }) => {
         {orderSummary ? (
           <OrderSummary handleBackClick={handleBackClick} />
         ) : (
-          <>
-            <ProductSelect
-              total={getOrderTotal(orderItems || [])}
-              commentary={commentary}
-              products={products}
-              selectedCategory={selectedCategory}
-              handleSelectedCategoryChange={handleSelectedCategoryChange}
-              findProduct={findProduct}
-              handleItemIncrease={handleItemIncrease}
-              handleItemDecrease={handleItemDecrease}
-              handleSubmitComment={handleSubmitCommentary}
-              handleNextClick={handleNextClick}
-            />
-          </>
+          <ProductSelect
+            total={getOrderTotal(orderItems || [])}
+            commentary={commentary}
+            products={products}
+            selectedCategory={selectedCategory}
+            handleSelectedCategoryChange={handleSelectedCategoryChange}
+            findProduct={findProduct}
+            handleItemIncrease={handleItemIncrease}
+            handleItemDecrease={handleItemDecrease}
+            handleSubmitCommentary={handleSubmitCommentary}
+            handleNextClick={handleNextClick}
+          />
         )}
       </div>
     </FadingModal>

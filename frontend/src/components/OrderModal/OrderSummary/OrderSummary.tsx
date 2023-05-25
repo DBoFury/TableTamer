@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { AppState, OrderType } from "../../../stores/types";
 import { useSelector } from "react-redux";
 import StickyWrapper from "../../StickyWrapper/StickyWrapper";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Checkbox, Typography, FormControlLabel, Button } from "@mui/material";
 import api from "../../API/api";
 import "./OrderSummary.css";
 import getOrderTotal from "../../../utils/getOrderTotal";
@@ -40,24 +40,52 @@ const OrderSummary = ({ handleBackClick }: OrderSummaryPropsType) => {
 
   return (
     <div className="order-summary-container">
-      <div className="order-summary-title">Order Summary</div>
+      <Typography
+        sx={{
+          fontSize: 28,
+          fontWeight: "bold",
+          marginBottom: "20px",
+        }}>
+        Order Summary
+      </Typography>
       <OrderDetails order={order} />
       <div className="order-paid-container">
         <FormControlLabel
           inputRef={paidCheckBox}
           sx={{
-            "& .MuiSvgIcon-root": { fontSize: 44 },
-            "& .MuiFormControlLabel-label": { fontSize: 30 },
+            "& .MuiSvgIcon-root": { fontSize: 36 },
+            "& .MuiFormControlLabel-label": {
+              fontSize: 30,
+              fontWeight: 600,
+            },
           }}
           control={<Checkbox defaultChecked />}
           label="Paid"
         />
-        <div>Total: {getOrderTotal(order?.products || [])}</div>
+        <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+          Total: {getOrderTotal(order?.products || [])}
+        </Typography>
       </div>
 
       <StickyWrapper className="order-actions">
-        <button onClick={handleSubmitOrder}>Create Order</button>
-        <button onClick={handleBackClick}>Back</button>
+        <Button
+          sx={{
+            fontWeight: "bold",
+            color: "#ffffff",
+            backgroundColor: "#5c6ac4",
+          }}
+          onClick={handleBackClick}>
+          Back
+        </Button>
+        <Button
+          sx={{
+            fontWeight: "bold",
+            color: "#ffffff",
+            backgroundColor: "#5c6ac4",
+          }}
+          onClick={handleSubmitOrder}>
+          Create Order
+        </Button>
       </StickyWrapper>
     </div>
   );

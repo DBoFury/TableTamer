@@ -33,11 +33,17 @@
 
 .product-amount-change p {
   margin: 0;
+  padding: 8px 0;
   min-width: 2em;
   text-align: center;
 }
 
 .actions-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.actions-container button {
+  padding: 6px 20px;
 }
