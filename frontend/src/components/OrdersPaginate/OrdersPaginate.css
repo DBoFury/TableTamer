@@ -1,0 +1,40 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.pagination-page,
+.next,
+.previous {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination-page {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.active {
+  background-color: #5c6ac4;
+  color: #fff;
+}
+
+.next,
+.previous {
+  padding-top: 6px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
+
+.disabled-page {
+  color: #ccc;
+  cursor: default;
+}

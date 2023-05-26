@@ -50,6 +50,7 @@ export interface OrderType {
   products: ProductOrderItemType[] | null;
   commentary: string | null;
   isTakeaway: boolean;
+  isPaid: boolean;
 }
 
 export interface FetchedOrderType extends OrderType {

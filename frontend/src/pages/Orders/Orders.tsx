@@ -5,8 +5,9 @@ import { resetState, setOrders } from "../../stores/reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState, FetchedOrderType } from "../../stores/types";
 import ExpandableOrder from "../../components/ExpandableOrder/ExpandableOrder";
-import ReactPaginate from "react-paginate";
+import OrdersPaginate from "../../components/OrdersPaginate/OrdersPaginate";
 import OrdersSort from "../../components/OrdersSort/OrdersSort";
+import "./Orders.css";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -20,11 +21,11 @@ const Orders = () => {
   const [openedOrder, setOpenedOrder] = useState<number | null>(null);
   const [sortCriteria, setSortCriteria] = useState("id");
 
-  const itemsPerPapge = 1;
+  const itemsPerPapge = 10;
 
   const endOffset = itemOffset + itemsPerPapge;
   const currentItems = orders?.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(orders?.length || 0 / itemsPerPapge);
+  const pageCount = Math.ceil((orders?.length || 0) / itemsPerPapge);
 
   const fetchOrders = async (criteria: string = "id") => {
     try {
@@ -75,12 +76,12 @@ const Orders = () => {
   }, []);
 
   return (
-    <>
+    <div className="orders-container">
       <OrdersSort
         sortCriteria={sortCriteria}
         handleSortCriteriaClick={handleSortCriteriaClick}
       />
-      <div className="orders-container">
+      <div className="expandable-orders-container">
         {currentItems?.map((order) => (
           <ExpandableOrder
             key={order.id}
@@ -89,17 +90,9 @@ const Orders = () => {
             handleClick={handleOpenOrder}
           />
         ))}
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-        />
       </div>
-    </>
+      <OrdersPaginate pageCount={pageCount} handlePageClick={handlePageClick} />
+    </div>
   );
 };
 

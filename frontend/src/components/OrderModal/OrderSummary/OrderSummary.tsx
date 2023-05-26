@@ -20,7 +20,7 @@ const OrderSummary = ({
 }: OrderSummaryPropsType) => {
   const order: OrderType | null = useSelector((state: AppState) => state.order);
   const jwt: string | null = useSelector((state: AppState) => state.jwtToken);
-  const paidCheckBox = useRef();
+  const paidCheckBox = useRef<HTMLInputElement>(null);
 
   const getOrderData = () => {
     return {
@@ -28,7 +28,8 @@ const OrderSummary = ({
         return { slug: item.product.slug, amount: item.amount };
       }),
       commentary: order?.commentary,
-      is_takeaway: order?.isTakeaway,
+      isPaid: paidCheckBox.current?.checked,
+      isTakeaway: order?.isTakeaway,
     };
   };
 

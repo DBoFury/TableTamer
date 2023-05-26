@@ -1,4 +1,4 @@
-import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import SpinningChevron from "../SpinningChevron/SpinningChevron";
 import "./OrdersSort.css";
 
 interface OrdersSortPropsType {
@@ -15,25 +15,25 @@ const OrdersSort = ({
       <button onClick={() => handleSortCriteriaClick("id")}>
         Id{" "}
         {sortCriteria === "id" ? (
-          <FaChevronUp />
+          <SpinningChevron isOpen={true} />
         ) : sortCriteria === "-id" ? (
-          <FaChevronDown />
+          <SpinningChevron isOpen={false} />
         ) : null}
       </button>
       <button onClick={() => handleSortCriteriaClick("date")}>
         Date{" "}
         {sortCriteria === "date" ? (
-          <FaChevronUp />
+          <SpinningChevron isOpen={true} />
         ) : sortCriteria === "-date" ? (
-          <FaChevronDown />
+          <SpinningChevron isOpen={false} />
         ) : null}
       </button>
       <button onClick={() => handleSortCriteriaClick("price")}>
         Full Price{" "}
         {sortCriteria === "price" ? (
-          <FaChevronUp />
+          <SpinningChevron isOpen={true} />
         ) : sortCriteria === "-price" ? (
-          <FaChevronDown />
+          <SpinningChevron isOpen={false} />
         ) : null}
       </button>
     </div>
