@@ -12,6 +12,13 @@ interface SettingsModalPropsType {
   handleModalClose: () => void;
 }
 
+interface UpdatedUser {
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  email?: string;
+}
+
 const SettingsModal = ({ open, handleModalClose }: SettingsModalPropsType) => {
   const dispatch = useDispatch();
   const jwt: string | null = useSelector((state: AppState) => state.jwtToken);
@@ -22,14 +29,29 @@ const SettingsModal = ({ open, handleModalClose }: SettingsModalPropsType) => {
   const emailRef = useRef<HTMLInputElement>();
 
   const handleSubmit = () => {
-    const updatedUser = {
-      firstName: firstNameRef.current?.value || "",
-      lastName: lastNameRef.current?.value || "",
-      phoneNumber: phoneNumberRef.current?.value || user?.phoneNumber,
-      email: emailRef.current?.value || user?.email,
-    };
+    const updatedUser: UpdatedUser = {};
 
-    if (!updatedUser.phoneNumber?.includes("+380")) {
+    if (firstNameRef.current?.value) {
+      updatedUser.firstName = firstNameRef.current.value;
+    }
+
+    if (lastNameRef.current?.value) {
+      updatedUser.lastName = lastNameRef.current.value;
+    }
+
+    if (phoneNumberRef.current?.value) {
+      updatedUser.phoneNumber = phoneNumberRef.current.value;
+    } else if (user?.phoneNumber) {
+      updatedUser.phoneNumber = user.phoneNumber;
+    }
+
+    if (emailRef.current?.value) {
+      updatedUser.email = emailRef.current.value;
+    } else if (user?.email) {
+      updatedUser.email = user.email;
+    }
+
+    if (updatedUser.phoneNumber && !updatedUser.phoneNumber?.includes("+380")) {
       updatedUser.phoneNumber = "+380" + updatedUser.phoneNumber;
     }
 
