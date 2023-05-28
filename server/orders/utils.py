@@ -101,13 +101,18 @@ def post_receipts(order: Order):
                           order_item.attribute_values
                           .aggregate(Sum("price_addition"))["price_addition__sum"])
         full_price = order_item.amount * price_per_unit
-        return {"title": order_item.product.title, "amount": order_item.amount, "price_per_unit": price_per_unit, "full_price": full_price}
+        return {"title": order_item.product.title,
+                "amount": order_item.amount,
+                "price_per_unit": price_per_unit,
+                "full_price": full_price}
 
     departments = {}
 
-    order_items = order.order_items.all().select_related("product")
+    order_items = order.order_items.all()\
+        .select_related("product")
     for order_item in order_items:
-        department_url = order_item.product.category.department.title.lower()
+        department_url = order_item.product\
+            .category.department.title.lower()
         if department_url in departments:
             departments[department_url].append(
                 _get_order_item_dict(order_item))
@@ -116,6 +121,12 @@ def post_receipts(order: Order):
                 _get_order_item_dict(order_item)]
 
     for department_url, products in departments.items():
-        print(f"http://{department_url}-department/print-order")
-        requests.post(f"http://{department_url}-department/print-order", json=json.dumps({"id": order.id, "created_at": order.created_at.strftime("%d %B %Y %H:%M"), "products": products,
-                                                                                          "commentary": order.commentary, "user": str(order.user)}))
+        requests.post(f"http://{department_url}-department/print-order",
+                      headers={"Content-Type": "application/json"},
+                      json=json.dumps({"id": order.id,
+                                       "created_at": order.created_at.strftime("%d %B %Y %H:%M"),
+                                       "products": products,
+                                       "is_takeaway": order.is_takeaway,
+                                       "hall": order.table.hall if order.table else None,
+                                       "table": order.table,
+                                       "commentary": order.commentary, "user": str(order.user)}))
