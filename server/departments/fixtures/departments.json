@@ -5,7 +5,7 @@
         "fields": {
             "title": "Pizzeria",
             "title_ukr": "Піцерія",
-            "department_url": ""
+            "department_url": "localhost:5003"
         }
     },
     {
@@ -14,7 +14,7 @@
         "fields": {
             "title": "Brazier",
             "title_ukr": "Мангал",
-            "department_url": ""
+            "department_url": "localhost:5001"
         }
     },
     {
@@ -23,7 +23,7 @@
         "fields": {
             "title": "Bar",
             "title_ukr": "Бар",
-            "department_url": ""
+            "department_url": "localhost:5002"
         }
     }
 ]

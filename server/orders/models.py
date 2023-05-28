@@ -1,8 +1,8 @@
 from django.db import models
 from django.db.models import Sum
+from halls.models import Hall, Table
 from products.models import AttributeValue, Product
 from users.models import User
-from halls.models import Hall, Table
 
 
 class Order(models.Model):
@@ -35,8 +35,8 @@ class Order(models.Model):
         return full_price
 
     @property
-    def submission(self) -> float:
-        return self.paid_amount - self.full_price
+    def submission(self) -> int:
+        return int(self.paid_amount) - self.full_price
 
     @property
     def hall(self) -> Hall:

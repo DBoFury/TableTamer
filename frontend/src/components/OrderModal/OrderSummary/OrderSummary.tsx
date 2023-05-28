@@ -1,8 +1,13 @@
-import { useRef, HTMLProps } from "react";
-import { AppState, OrderType } from "../../../stores/types";
+import { useEffect, useRef, HTMLProps } from "react";
+import {
+  AppState,
+  HallType,
+  TableType,
+  OrderType,
+} from "../../../stores/types";
 import { useSelector } from "react-redux";
 import StickyWrapper from "../../StickyWrapper/StickyWrapper";
-import { Checkbox, Typography, FormControlLabel, Button } from "@mui/material";
+import { TextField, Typography, FormControlLabel, Button } from "@mui/material";
 import api from "../../API/api";
 import "./OrderSummary.css";
 import getOrderTotal from "../../../utils/getOrderTotal";
@@ -18,9 +23,15 @@ const OrderSummary = ({
   handleBackClick,
   closeOrderModal,
 }: OrderSummaryPropsType) => {
+  const selectedHall: HallType | null = useSelector(
+    (state: AppState) => state.selectedHall
+  );
+  const selectedTable: TableType | null = useSelector(
+    (state: AppState) => state.selectedTable
+  );
   const order: OrderType | null = useSelector((state: AppState) => state.order);
   const jwt: string | null = useSelector((state: AppState) => state.jwtToken);
-  const paidCheckBox = useRef<HTMLInputElement>(null);
+  const paidNumberField = useRef<HTMLInputElement>(null);
 
   const getOrderData = () => {
     return {
@@ -28,8 +39,9 @@ const OrderSummary = ({
         return { slug: item.product.slug, amount: item.amount };
       }),
       commentary: order?.commentary,
-      isPaid: paidCheckBox.current?.checked,
       isTakeaway: order?.isTakeaway,
+      paidAmount: paidNumberField.current?.value,
+      table: selectedTable?.id,
     };
   };
 
@@ -47,6 +59,12 @@ const OrderSummary = ({
       });
   };
 
+  useEffect(() => {
+    if (!!paidNumberField.current) {
+      paidNumberField.current.value = `${order?.paidAmount}`;
+    }
+  }, [order]);
+
   return (
     <div className="order-summary-container" style={style}>
       <Typography
@@ -55,21 +73,37 @@ const OrderSummary = ({
           fontWeight: "bold",
           marginBottom: "20px",
         }}>
-        Order Summary
+        {order?.isTakeaway
+          ? "Order Summary"
+          : `Order Summary for ${selectedHall?.title}, Table
+        ${selectedTable?.tableNumber}`}
       </Typography>
       <OrderDetails order={order} />
       <div className="order-paid-container">
         <FormControlLabel
-          inputRef={paidCheckBox}
           sx={{
+            justifyContent: "left",
+            width: "50%",
+            flexDirection: "row-reverse",
+            margin: 0,
+            gap: "1.5rem",
             "& .MuiSvgIcon-root": { fontSize: 36 },
             "& .MuiFormControlLabel-label": {
               fontSize: 30,
               fontWeight: 600,
             },
           }}
-          control={<Checkbox defaultChecked />}
           label="Paid"
+          control={
+            <TextField
+              sx={{
+                maxWidth: "120px",
+                width: "50%",
+              }}
+              inputRef={paidNumberField}
+              type="number"
+            />
+          }
         />
         <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
           Total: {getOrderTotal(order?.products || [])}

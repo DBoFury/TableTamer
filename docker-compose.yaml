@@ -40,8 +40,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  kebab-department:
-    container_name: kebab-department
+  brazier-department:
+    container_name: brazier-department
     build:
       context: department-server
       target: builder

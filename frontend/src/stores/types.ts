@@ -50,13 +50,16 @@ export interface OrderType {
   products: ProductOrderItemType[] | null;
   commentary: string | null;
   isTakeaway: boolean;
-  isPaid: boolean;
+  paidAmount: number;
 }
 
 export interface FetchedOrderType extends OrderType {
   id: number;
+  hall: string;
+  table: string;
   createdAt: string;
   fullPrice: number;
+  submission: number;
 }
 
 export interface AppState {

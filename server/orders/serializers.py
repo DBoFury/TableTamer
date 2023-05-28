@@ -30,8 +30,8 @@ class OrderItemSerializer(ModelSerializer):
 
 
 class OrderSerializer(ModelSerializer):
-    hall = CharField(source="table.hall.title")
-    table = CharField(source="table.title")
+    hall = CharField(source="table.hall.title", allow_null=True)
+    table = CharField(source="table.title", allow_null=True)
     products = OrderItemSerializer(many=True, source="order_items")
     user = UserSerializer()
     full_price = SerializerMethodField()

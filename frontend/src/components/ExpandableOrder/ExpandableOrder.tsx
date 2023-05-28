@@ -1,9 +1,9 @@
 import { FetchedOrderType } from "../../stores/types";
-import { Typography, FormControlLabel, Checkbox } from "@mui/material";
+import { Typography } from "@mui/material";
 import Expand from "react-expand-animated";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import "./ExpandableOrder.css";
 import SpinningChevron from "../SpinningChevron/SpinningChevron";
+import "./ExpandableOrder.css";
 
 interface ExpandableOrderPropsType {
   order: FetchedOrderType;
@@ -25,9 +25,22 @@ const ExpandableOrder = ({
           marginBottom: `${isOpened ? 20 : 0}px`,
         }}>
         <div className="expandable-order-naming">
-          <Typography>
-            <b>Order № {order.id}</b>
-          </Typography>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "2rem",
+            }}>
+            <Typography>
+              <b>Order № {order.id}</b>
+            </Typography>
+            <Typography>
+              <b>{order.hall}</b>
+            </Typography>
+            <Typography>
+              <b>{order.table}</b>
+            </Typography>
+          </div>
           <Typography>
             <b>Created at: </b>
             {order.createdAt}
@@ -42,17 +55,14 @@ const ExpandableOrder = ({
         open={isOpened}>
         <OrderDetails order={order} />
         <div className="expandable-order-total-paid">
-          <FormControlLabel
+          <Typography
             sx={{
-              "& .MuiSvgIcon-root": { fontSize: 36 },
-              "& .MuiFormControlLabel-label": {
-                fontSize: 30,
-                fontWeight: 600,
-              },
-            }}
-            control={<Checkbox checked={order.isPaid} />}
-            label="Paid"
-          />
+              fontSize: 30,
+              fontWeight: 600,
+              marginTop: "1rem",
+            }}>
+            Paid: {order.paidAmount}
+          </Typography>
           <Typography
             sx={{
               fontSize: 30,

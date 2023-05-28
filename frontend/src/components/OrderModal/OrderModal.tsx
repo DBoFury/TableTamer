@@ -98,7 +98,7 @@ const OrderModal = ({ open, closeOrderModal }: OrderModalProps) => {
         products: orderItems,
         commentary: commentary,
         isTakeaway: !!!selectedTable,
-        isPaid: false,
+        paidAmount: getOrderTotal(orderItems),
       };
       dispatch(setOrder(order));
       setOrderSummary(true);

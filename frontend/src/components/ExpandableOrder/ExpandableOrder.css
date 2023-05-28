@@ -16,8 +16,10 @@
 .expandable-order-naming {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   flex-grow: 1;
   gap: 20px;
+  padding: 0 1rem;
 }
 
 .expandable-order-details {

@@ -32,3 +32,7 @@ class Table(models.Model):
 
     def __str__(self) -> str:
         return f"{self.hall}, Table {self.table_number}"
+
+    @property
+    def title(self) -> str:
+        return f"Table {self.table_number}"

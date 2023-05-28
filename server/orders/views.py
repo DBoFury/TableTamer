@@ -9,7 +9,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Order
 from .serializers import OrderSerializer
-from .utils import create_order, is_order_data_valid, update_order
+from .utils import (create_order, is_order_data_valid, post_receipts,
+                    update_order)
 
 
 class IsAuthenticated(BasePermission):
@@ -58,6 +59,7 @@ class OrdersListView(APIView):
         validation_result = is_order_data_valid(request)
         if not isinstance(validation_result, str):
             order = create_order(request)
+            post_receipts(order)
             return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
         return Response({"error": validation_result}, status=status.HTTP_400_BAD_REQUEST)
 
