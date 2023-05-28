@@ -36,6 +36,7 @@ def is_order_data_valid(request):
         if not "commentary" in data:
             raise KeyError("commentary")
         if not "is_takeaway" in data:
+            print(data.get("is_takeaway"))
             raise KeyError("is_takeaway")
         if not "products" in data:
             raise KeyError("products")
