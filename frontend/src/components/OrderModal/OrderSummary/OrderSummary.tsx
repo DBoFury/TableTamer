@@ -53,8 +53,7 @@ const OrderSummary = ({
           "Content-Type": "application/json",
         },
       })
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
         closeOrderModal();
       });
   };

@@ -1,4 +1,5 @@
 from flask import Flask, request
+import json
 
 app = Flask(__name__)
 
@@ -10,11 +11,11 @@ def index():
 
 @app.route("/print-order", methods=["POST"])
 def print_order():
-    order_data = request.json
-
     def _print_empty_line(n_times=1):
         for _ in range(n_times):
             print(f"|{' '*48}|")
+
+    order_data = json.loads(request.json)
 
     order_id = order_data.get("id")
     created_at = order_data.get("created_at")
