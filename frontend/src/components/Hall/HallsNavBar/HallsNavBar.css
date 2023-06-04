@@ -1,0 +1,6 @@
+.hall-nav-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-self: flex-start;
+}

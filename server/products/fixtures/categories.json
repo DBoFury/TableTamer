@@ -7,5 +7,23 @@
             "title_ukr": "Піца",
             "department": 1
         }
+    },
+    {
+        "model": "products.category",
+        "pk": 2,
+        "fields": {
+            "title": "Drinks",
+            "title_ukr": "Напої",
+            "department": 3
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 3,
+        "fields": {
+            "title": "Kebab",
+            "title_ukr": "Шашлик",
+            "department": 2
+        }
     }
 ]

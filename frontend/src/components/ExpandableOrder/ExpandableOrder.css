@@ -1,0 +1,48 @@
+.expandable-order-container {
+  margin: 5px 0;
+}
+
+.expandable-order-title {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 3rem;
+  color: #fff;
+  background: rgba(58, 71, 184, 0.7);
+  padding: 1.1rem 1.5rem 1.1rem 1.5rem;
+  cursor: pointer;
+}
+
+.expandable-order-naming {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-grow: 1;
+  gap: 20px;
+  padding: 0 1rem;
+}
+
+.expandable-order-details {
+  padding: 0 20px;
+}
+
+.expandable-order-details-opened {
+  position: relative;
+}
+
+.expandable-order-details-opened::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 2%;
+  width: 96%;
+  height: 1px;
+  background-color: black;
+}
+
+.expandable-order-total-paid {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

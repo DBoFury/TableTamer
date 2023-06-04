@@ -1,0 +1,13 @@
+.create-order-container {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+}
+
+.create-order-container button {
+  margin-top: auto;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+  justify-self: flex-end;
+  padding: 20px;
+}

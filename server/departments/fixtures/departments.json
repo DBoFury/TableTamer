@@ -1,0 +1,29 @@
+[
+    {
+        "model": "departments.department",
+        "pk": 1,
+        "fields": {
+            "title": "Pizzeria",
+            "title_ukr": "Піцерія",
+            "department_url": "localhost:5003"
+        }
+    },
+    {
+        "model": "departments.department",
+        "pk": 2,
+        "fields": {
+            "title": "Brazier",
+            "title_ukr": "Мангал",
+            "department_url": "localhost:5001"
+        }
+    },
+    {
+        "model": "departments.department",
+        "pk": 3,
+        "fields": {
+            "title": "Bar",
+            "title_ukr": "Бар",
+            "department_url": "localhost:5002"
+        }
+    }
+]

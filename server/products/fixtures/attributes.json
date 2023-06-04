@@ -6,5 +6,21 @@
             "title": "Size",
             "title_ukr": "Розмір"
         }
+    },
+    {
+        "model": "products.attribute",
+        "pk": 2,
+        "fields": {
+            "title": "Drink Volume",
+            "title_ukr": "Об'єм напою"
+        }
+    },
+    {
+        "model": "products.attribute",
+        "pk": 3,
+        "fields": {
+            "title": "Spiciness",
+            "title_ukr": "Гострота"
+        }
     }
 ]

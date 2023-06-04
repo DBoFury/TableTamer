@@ -1,0 +1,7 @@
+.sticky {
+  position: sticky;
+  bottom: 0px;
+  animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+  width: 100%;
+  align-self: center;
+}
