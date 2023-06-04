@@ -19,12 +19,15 @@ class OrderItemInline(NestedStackedInline):
 class OrderAdmin(NestedModelAdmin):
     inlines = [OrderItemInline]
 
-    list_display = ("created_at", "is_fulfilled", "is_paid",
-                    "is_takeaway", "full_price", )
-    readonly_fields = ("full_price",)
+    list_display = ("created_at", "table",
+                    "is_takeaway", "full_price", "user",)
+    readonly_fields = ("full_price", "submission", )
 
     def full_price(self, obj):
         return obj.full_price
+
+    def submission(self, obj):
+        return obj.submission
 
 
 admin.site.register(OrderItem)

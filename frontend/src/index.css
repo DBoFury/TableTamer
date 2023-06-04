@@ -1,15 +1,51 @@
+body {
+  margin: 0;
+}
+
+.root-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* color: rgba(255, 255, 255, 0.87); */
+  background-color: #f0eff1;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: none;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: gray;
+  border-right: 4px white solid;
+  background-clip: padding-box;
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 1rem;
+}
+
+body::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 1rem;
 }

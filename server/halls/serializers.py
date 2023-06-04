@@ -5,7 +5,7 @@ from .models import Hall, Table
 class TableSerializer(ModelSerializer):
     class Meta:
         model = Table
-        fields = ("table_number",)
+        fields = ("id", "table_number",)
 
 
 class HallSerializer(ModelSerializer):

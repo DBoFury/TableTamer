@@ -1,0 +1,9 @@
+.tables-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  gap: 1rem;
+}

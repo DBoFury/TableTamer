@@ -34,7 +34,8 @@ class ProductsListView(APIView):
                 products = products.order_by(orderby)
         except Exception:
             pass
-        serializer = ProductSerializer(products, many=True)
+        serializer = ProductSerializer(
+            products, many=True, context={"request": request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

@@ -29,3 +29,10 @@ class Table(models.Model):
 
     hall = models.ForeignKey(Hall, related_name="tables",
                              on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f"{self.hall}, Table {self.table_number}"
+
+    @property
+    def title(self) -> str:
+        return f"Table {self.table_number}"

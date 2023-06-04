@@ -1,0 +1,17 @@
+.settings-modal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 90vh;
+  background-color: whitesmoke;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-change-form {
+  flex-grow: 1;
+}

@@ -40,5 +40,32 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
+  brazier-department:
+    container_name: brazier-department
+    build:
+      context: department-server
+      target: builder
+    command: python -u main.py
+    ports:
+      - 5001:80
+
+  bar-department:
+    container_name: bar-department
+    build:
+      context: department-server
+      target: builder
+    command: python -u main.py
+    ports:
+      - 5002:80
+
+  pizzeria-department:
+    container_name: pizzeria-department
+    build:
+      context: department-server
+      target: builder
+    command: python -u main.py
+    ports:
+      - 5003:80
+
 volumes:
   postgres-data:

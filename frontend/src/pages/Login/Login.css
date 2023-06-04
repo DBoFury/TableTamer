@@ -1,0 +1,26 @@
+.login-container {
+  align-items: center;
+}
+
+.white-text h2 {
+  font-weight: 800 !important;
+  color: #fff;
+  text-align: center;
+}
+
+.pincode-input-container {
+  margin: 30px 0 0;
+}
+
+.pincode-input-container input {
+  background: #546171 !important;
+  border-radius: 15px;
+  width: 95px !important;
+  height: 95px !important;
+  color: #fff !important;
+  border: 1px solid #212a35 !important;
+  margin: 0px 10px !important;
+  font-size: 40px;
+  font-weight: 500;
+  text-align: center;
+}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Sum
+from halls.models import Hall, Table
 from products.models import AttributeValue, Product
 from users.models import User
 
@@ -7,19 +8,18 @@ from users.models import User
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now=True,
                                       help_text="Date and time of Order creation")
-    is_fulfilled = models.BooleanField(default=False,
-                                       verbose_name="Fulfilled",
-                                       help_text="Is Order finished and client got his products")
-    is_paid = models.BooleanField(default=False,
-                                  verbose_name="Paid",
-                                  help_text="Is Order has been paid")
-    is_takeaway = models.BooleanField(verbose_name="Takeaway",
-                                      help_text="Is Order been taken as a takeaway")
-
+    commentary = models.TextField(blank=True,
+                                  verbose_name="Commentary",
+                                  help_text="Commentary to an Order")
     products = models.ManyToManyField(Product, through="OrderItem")
-
+    table = models.ForeignKey(
+        Table, null=True, blank=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, null=True,
                              blank=True, on_delete=models.CASCADE)
+    paid_amount = models.IntegerField(verbose_name="Paid Amount",
+                                      help_text="Amount of money client paid")
+    is_takeaway = models.BooleanField(verbose_name="Takeaway",
+                                      help_text="Is Order been taken as a takeaway")
 
     def __str__(self) -> str:
         return f"{self.created_at} {self.user or ''}"
@@ -33,6 +33,14 @@ class Order(models.Model):
                  order_item.attribute_values
                     .aggregate(Sum("price_addition"))["price_addition__sum"])
         return full_price
+
+    @property
+    def submission(self) -> int:
+        return int(self.paid_amount) - self.full_price
+
+    @property
+    def hall(self) -> Hall:
+        return self.table.hall
 
 
 class OrderItem(models.Model):
