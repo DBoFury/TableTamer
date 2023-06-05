@@ -58,8 +58,8 @@ services:
     ports:
       - 5002:80
 
-  pizzeria-department:
-    container_name: pizzeria-department
+  kitchen-department:
+    container_name: kitchen-department
     build:
       context: department-server
       target: builder

@@ -13,4 +13,4 @@ class HallSerializer(ModelSerializer):
 
     class Meta:
         model = Hall
-        fields = ("title", "title_ukr", "tables")
+        fields = ("title", "tables",)

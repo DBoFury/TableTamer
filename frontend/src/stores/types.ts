@@ -5,7 +5,6 @@ export interface TableType {
 
 export interface HallType {
   title: string;
-  titleUkr: string;
   tables: TableType[];
 }
 
@@ -19,20 +18,16 @@ export interface UserType {
 
 export interface DepartmentType {
   title: string;
-  titleUkr: string;
 }
 
 export interface CategoryType {
   title: string;
-  titleUkr: string;
   department: DepartmentType;
 }
 
 export interface ProductType {
   title: string;
-  titleUkr: string;
   description: string | null;
-  descriptionUkr: string | null;
   price: number;
   stock: number | null;
   imageUrl: string;

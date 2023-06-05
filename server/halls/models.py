@@ -7,11 +7,6 @@ class Hall(models.Model):
         verbose_name="Hall",
         help_text="Hall name"
     )
-    title_ukr = models.CharField(
-        max_length=64, unique=True,
-        verbose_name="Hall (UKR)",
-        help_text="Hall name in Ukrainian"
-    )
 
     def __str__(self) -> str:
         return self.title
