@@ -14,7 +14,7 @@ import "./ProductSelect.css";
 
 interface ProductSelectPropsType extends HTMLProps<HTMLDivElement> {
   total: number;
-  commentary: string;
+  commentary: string | null;
   handleSubmitCommentary: (text: string) => void;
   products: ProductType[] | null;
   selectedCategory: CategoryType | null;

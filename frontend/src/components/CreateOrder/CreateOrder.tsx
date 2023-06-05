@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AppState, TableType } from "../../stores/types";
-import { setOrder } from "../../stores/reducers";
+import { resetOrder } from "../../stores/reducers";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
 import OrderModal from "../OrderModal/OrderModal";
@@ -19,7 +19,7 @@ const CreateOrder = () => {
 
   const closeOrderModal = () => {
     setCreateOrderOpen(false);
-    dispatch(setOrder(null));
+    dispatch(resetOrder());
   };
 
   return (

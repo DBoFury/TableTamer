@@ -6,7 +6,7 @@ from departments.serializers import DepartmentSerializer
 class AttributeValueSerializer(ModelSerializer):
     class Meta:
         model = AttributeValue
-        fields = ("value", "value_ukr", "price_addition")
+        fields = ("value", "price_addition")
 
 
 class AttributeSerializer(ModelSerializer):
@@ -14,7 +14,7 @@ class AttributeSerializer(ModelSerializer):
 
     class Meta:
         model = Attribute
-        fields = ("title", "title_ukr", "values")
+        fields = ("title", "values")
 
 
 class CategorySerializer(ModelSerializer):
@@ -23,7 +23,7 @@ class CategorySerializer(ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ("title", "title_ukr", "department", "attributes")
+        fields = ("title", "department", "attributes")
 
     def get_attributes(self, obj):
         return AttributeSerializer(obj.attributes.distinct(),
@@ -36,8 +36,8 @@ class ProductSerializer(ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ("id", "title", "title_ukr", "description",
-                  "description_ukr", "price", "stock",
+        fields = ("id", "title", "description",
+                  "price", "stock",
                   "image_url", "is_in_stoplist",
                   "slug", "category")
 

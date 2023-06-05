@@ -6,7 +6,6 @@
             "category": 1,
             "attribute": 1,
             "value": "Small",
-            "value_ukr": "Маленька",
             "price_addition": 0
         }
     },
@@ -17,7 +16,6 @@
             "category": 1,
             "attribute": 1,
             "value": "Normal",
-            "value_ukr": "Нормальна",
             "price_addition": 20
         }
     },
@@ -28,7 +26,6 @@
             "category": 1,
             "attribute": 1,
             "value": "Big",
-            "value_ukr": "Велика",
             "price_addition": 50
         }
     },
@@ -39,7 +36,6 @@
             "category": 2,
             "attribute": 2,
             "value": "0.5L",
-            "value_ukr": "0.5L",
             "price_addition": 0
         }
     },
@@ -50,7 +46,6 @@
             "category": 2,
             "attribute": 2,
             "value": "1L",
-            "value_ukr": "1L",
             "price_addition": 15
         }
     },
@@ -61,7 +56,6 @@
             "category": 3,
             "attribute": 3,
             "value": "Normal",
-            "value_ukr": "Звичайний",
             "price_addition": 0
         }
     },
@@ -72,7 +66,6 @@
             "category": 3,
             "attribute": 3,
             "value": "Spicy",
-            "value_ukr": "Гострий",
             "price_addition": 20
         }
     }

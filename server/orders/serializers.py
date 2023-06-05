@@ -8,15 +8,13 @@ from .models import Order, OrderItem, SelectedAttribute
 
 class SelectedAttributeSerializer(ModelSerializer):
     title = ReadOnlyField(source='attribute_value.attribute.title')
-    title_ukr = ReadOnlyField(source='attribute_value.attribute.title_ukr')
     value = ReadOnlyField(source='attribute_value.value')
-    value_ukr = ReadOnlyField(source='attribute_value.value_ukr')
     price_addition = ReadOnlyField(source='attribute_value.price_addition')
 
     class Meta:
         model = SelectedAttribute
-        fields = ("title", "title_ukr", "value",
-                  "value_ukr", "price_addition", )
+        fields = ("title", "value",
+                  "price_addition", )
 
 
 class OrderItemSerializer(ModelSerializer):

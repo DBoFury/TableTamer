@@ -1,6 +1,6 @@
 import { AppState, HallType } from "../../stores/types";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedHall } from "../../stores/reducers";
+import { setSelectedHall, setSelectedTable } from "../../stores/reducers";
 import HallsNavBar from "./HallsNavBar/HallsNavBar";
 import Tables from "./Tables/Tables";
 import "./Hall.css";
@@ -15,7 +15,12 @@ const Hall = () => {
   );
 
   const handleHallClick = (hall: HallType | null) => {
-    dispatch(setSelectedHall(hall));
+    if (hall === selectedHall) {
+      dispatch(setSelectedHall(null));
+      dispatch(setSelectedTable(null));
+    } else {
+      dispatch(setSelectedHall(hall));
+    }
   };
 
   return (

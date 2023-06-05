@@ -1,16 +1,19 @@
 import { FaChevronUp } from "react-icons/fa";
-import "./SpinningChevron.css";
 
 interface SpinningChevronPropsType {
   isOpen: boolean;
+  startRotation?: number;
 }
 
-const SpinningChevron = ({ isOpen }: SpinningChevronPropsType) => {
+const SpinningChevron = ({
+  isOpen,
+  startRotation,
+}: SpinningChevronPropsType) => {
   return (
     <div className="spinning-chevron-container">
       <FaChevronUp
         style={{
-          transform: `rotate(${isOpen ? -180 : 0}deg)`,
+          transform: `rotate(${isOpen ? -180 : startRotation || 0}deg)`,
           transition: "all 0.3s ease-in",
         }}
       />

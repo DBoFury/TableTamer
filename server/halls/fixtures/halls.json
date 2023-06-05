@@ -3,16 +3,14 @@
         "model": "halls.hall",
         "pk": 1,
         "fields": {
-            "title": "Hall 1",
-            "title_ukr": "Зал 1"
+            "title": "Hall 1"
         }
     },
     {
         "model": "halls.hall",
         "pk": 2,
         "fields": {
-            "title": "Hall 2",
-            "title_ukr": "Зал 2"
+            "title": "Hall 2"
         }
     }
 ]

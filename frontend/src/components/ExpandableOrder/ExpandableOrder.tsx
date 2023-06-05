@@ -1,12 +1,17 @@
-import { FetchedOrderType } from "../../stores/types";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { resetOrder } from "../../stores/reducers";
 import { Typography } from "@mui/material";
 import Expand from "react-expand-animated";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import SpinningChevron from "../SpinningChevron/SpinningChevron";
+import { Button } from "@mui/material";
+import OrderModal from "../OrderModal/OrderModal";
+import { OrderType } from "../../stores/types";
 import "./ExpandableOrder.css";
 
 interface ExpandableOrderPropsType {
-  order: FetchedOrderType;
+  order: OrderType;
   isOpened: boolean;
   handleClick: (id: number) => void;
 }
@@ -16,6 +21,19 @@ const ExpandableOrder = ({
   isOpened,
   handleClick,
 }: ExpandableOrderPropsType) => {
+  const dispatch = useDispatch();
+
+  const [editOrderModalOpen, setEditOrderModalOpen] = useState<boolean>(false);
+
+  const handleEditOrderClick = () => {
+    setEditOrderModalOpen(true);
+  };
+
+  const closeOrderModal = () => {
+    setEditOrderModalOpen(false);
+    dispatch(resetOrder());
+  };
+
   return (
     <div className="expandable-order-container">
       <div
@@ -46,7 +64,7 @@ const ExpandableOrder = ({
             {order.createdAt}
           </Typography>
         </div>
-        <SpinningChevron isOpen={isOpened} />
+        <SpinningChevron isOpen={isOpened} startRotation={-90} />
       </div>
       <Expand
         className={`expandable-order-details ${
@@ -71,8 +89,26 @@ const ExpandableOrder = ({
             }}>
             Total: {order.fullPrice}
           </Typography>
+          <Button
+            onClick={handleEditOrderClick}
+            sx={{
+              height: "3rem",
+              fontWeight: "bold",
+              color: "#ffffff",
+              backgroundColor: "#5c6ac4",
+              marginTop: "0.5rem",
+            }}>
+            Edit Order
+          </Button>
         </div>
       </Expand>
+      {editOrderModalOpen && (
+        <OrderModal
+          open={editOrderModalOpen}
+          closeOrderModal={closeOrderModal}
+          orderEdit={order}
+        />
+      )}
     </div>
   );
 };

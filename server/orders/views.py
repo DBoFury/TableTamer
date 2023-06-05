@@ -88,7 +88,9 @@ class OrderView(APIView):
         validation_result = is_order_data_valid(request)
         if not isinstance(validation_result, str):
             order = update_order(request, order)
-        return Response(OrderSerializer(order).data, status=status.HTTP_202_ACCEPTED)
+            post_receipts(order)
+            return Response(OrderSerializer(order).data, status=status.HTTP_202_ACCEPTED)
+        return Response({"error": validation_result}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         order = self.get_order(pk, request.user)
