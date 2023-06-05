@@ -38,10 +38,10 @@ def print_order():
     def _get_location_line(hall, table, is_takeaway, width=50):
         location_line = ""
         if not is_takeaway:
-            location_line += f"\n|{' '*(int(width/2)-7-int(math.floor(len(hall)/2)))}Hall: {hall}"\
-                f"{' '*(int(width/2)-7-int(math.ceil(len(hall)/2)))}|"
-            location_line += f"\n|{' '*(int(width/2)-7-int(math.floor(len(table)/2)))}Table: {table}"\
-                f"{' '*(int(width/2)-7-int(math.ceil(len(table)/2)))}|"
+            location_line += f"\n|{' '*(int(width/2)-4-int(math.floor(len(hall)/2)))}Hall: {hall}"\
+                f"{' '*(int(width/2)-4-int(math.ceil(len(hall)/2)))}|"
+            location_line += f"\n|{' '*(int(width/2)-5-int(math.floor(len(table)/2)))}Table: {table}"\
+                f"{' '*(int(width/2)-4-int(math.ceil(len(table)/2)))}|"
         else:
             location_line += f"\n|{' '*(int(width/2) - 5)}Takeaway{' '*(int(width/2) - 5)}|"
         return location_line
