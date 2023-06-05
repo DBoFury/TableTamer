@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../components/API/api";
 import { resetState, setOrders } from "../../stores/reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { AppState, FetchedOrderType } from "../../stores/types";
+import { AppState, OrderType } from "../../stores/types";
 import ExpandableOrder from "../../components/ExpandableOrder/ExpandableOrder";
 import OrdersPaginate from "../../components/OrdersPaginate/OrdersPaginate";
 import OrdersSort from "../../components/OrdersSort/OrdersSort";
@@ -13,9 +13,7 @@ const Orders = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const jwt: string | null = useSelector((state: AppState) => state.jwtToken);
-  const orders: FetchedOrderType[] | null = useSelector(
-    (state: AppState) => state.orders
-  );
+  const orders: OrderType[] = useSelector((state: AppState) => state.orders);
 
   const [itemOffset, setItemOffset] = useState<number>(0);
   const [openedOrder, setOpenedOrder] = useState<number | null>(null);
@@ -24,8 +22,8 @@ const Orders = () => {
   const itemsPerPapge = 10;
 
   const endOffset = itemOffset + itemsPerPapge;
-  const currentItems = orders?.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil((orders?.length || 0) / itemsPerPapge);
+  const currentItems = orders.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(orders.length / itemsPerPapge);
 
   const fetchOrders = async (criteria: string = "id") => {
     try {
@@ -34,7 +32,7 @@ const Orders = () => {
           Authorization: `Bearer ${jwt}`,
         },
       });
-      const fetchedOrders: FetchedOrderType[] = response.data;
+      const fetchedOrders: OrderType[] = response.data;
       dispatch(setOrders(fetchedOrders));
     } catch {
       localStorage.removeItem("token");
@@ -44,7 +42,9 @@ const Orders = () => {
   };
 
   const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * itemsPerPapge) % (orders?.length || 1);
+    const newOffset =
+      (event.selected * itemsPerPapge) %
+      (orders.length === 0 ? 1 : orders.length);
     setItemOffset(newOffset);
   };
 

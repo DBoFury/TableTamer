@@ -8,7 +8,6 @@ import {
   CategoryType,
   ProductType,
   OrderType,
-  FetchedOrderType,
 } from "./types";
 
 const initialState: AppState = {
@@ -26,7 +25,7 @@ const initialState: AppState = {
     isTakeaway: null,
     paidAmount: 0,
   },
-  orders: null,
+  orders: [],
 };
 
 const appSlice = createSlice({
@@ -66,7 +65,7 @@ const appSlice = createSlice({
     resetOrder: (state) => {
       state.order = initialState.order;
     },
-    setOrders: (state, action: PayloadAction<FetchedOrderType[] | null>) => {
+    setOrders: (state, action: PayloadAction<OrderType[]>) => {
       state.orders = action.payload;
     },
   },

@@ -36,7 +36,6 @@ const OrderModal = ({ open, closeOrderModal, orderEdit }: OrderModalProps) => {
   );
 
   useEffect(() => {
-    console.log(order);
     if (!!orderEdit) {
       dispatch(setOrder(orderEdit));
     }
@@ -160,6 +159,7 @@ const OrderModal = ({ open, closeOrderModal, orderEdit }: OrderModalProps) => {
           }}
           closeOrderModal={closeOrderModal}
           handleBackClick={handleBackClick}
+          isEdit={!!orderEdit}
         />
       </div>
     </FadingModal>

@@ -46,15 +46,12 @@ export interface OrderType {
   commentary: string;
   isTakeaway: boolean | null;
   paidAmount: number;
-}
-
-export interface FetchedOrderType extends OrderType {
-  id: number;
-  hall: string;
-  table: string;
-  createdAt: string;
-  fullPrice: number;
-  submission: number;
+  id?: number;
+  hall?: string;
+  table?: string;
+  createdAt?: string;
+  fullPrice?: number;
+  submission?: number;
 }
 
 export interface AppState {
@@ -67,7 +64,7 @@ export interface AppState {
   categories: CategoryType[] | null;
   products: ProductType[] | null;
   order: OrderType;
-  orders: FetchedOrderType[] | null;
+  orders: OrderType[];
 }
 
 export enum ActionType {
@@ -140,7 +137,7 @@ export interface ResetOrderAction {
 
 export interface SetOrdersAction {
   type: ActionType.SET_ORDERS;
-  payload: FetchedOrderType[] | null;
+  payload: OrderType[];
 }
 
 export const resetState = (): ResetStateAction => ({
@@ -206,9 +203,7 @@ export const resetOrder = (): ResetOrderAction => ({
   type: ActionType.RESET_ORDER,
 });
 
-export const setOrders = (
-  orders: FetchedOrderType[] | null
-): SetOrdersAction => ({
+export const setOrders = (orders: OrderType[]): SetOrdersAction => ({
   type: ActionType.SET_ORDERS,
   payload: orders,
 });
