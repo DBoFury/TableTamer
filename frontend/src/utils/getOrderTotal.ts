@@ -1,8 +1,8 @@
 import { ProductOrderItemType } from "../stores/types";
 
-const getOrderTotal = (orderItems: ProductOrderItemType[]) => {
+const getOrderTotal = (orderItems: ProductOrderItemType[] | null) => {
   let total = 0;
-  orderItems.map((item) => {
+  orderItems?.map((item) => {
     total += item.amount * item.product.price;
   });
   return total;

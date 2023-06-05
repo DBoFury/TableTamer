@@ -46,7 +46,7 @@ const ExpandableOrder = ({
             {order.createdAt}
           </Typography>
         </div>
-        <SpinningChevron isOpen={isOpened} />
+        <SpinningChevron isOpen={isOpened} startRotation={-90} />
       </div>
       <Expand
         className={`expandable-order-details ${

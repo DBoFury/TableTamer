@@ -20,7 +20,12 @@ const initialState: AppState = {
   departments: null,
   categories: null,
   products: null,
-  order: null,
+  order: {
+    products: [],
+    commentary: "",
+    isTakeaway: null,
+    paidAmount: 0,
+  },
   orders: null,
 };
 
@@ -28,7 +33,7 @@ const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    resetState: (state) => {
+    resetState: (state: AppState) => {
       state = initialState;
     },
     setJwtToken: (state, action: PayloadAction<string | null>) => {
@@ -55,8 +60,11 @@ const appSlice = createSlice({
     setProducts: (state, action: PayloadAction<ProductType[] | null>) => {
       state.products = action.payload;
     },
-    setOrder: (state, action: PayloadAction<OrderType | null>) => {
+    setOrder: (state, action: PayloadAction<OrderType>) => {
       state.order = action.payload;
+    },
+    resetOrder: (state) => {
+      state.order = initialState.order;
     },
     setOrders: (state, action: PayloadAction<FetchedOrderType[] | null>) => {
       state.orders = action.payload;
@@ -75,6 +83,7 @@ export const {
   setCategories,
   setProducts,
   setOrder,
+  resetOrder,
   setOrders,
 } = appSlice.actions;
 

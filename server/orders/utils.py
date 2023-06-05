@@ -66,6 +66,7 @@ def create_order(request):
     order = Order.objects.create(**validated_data, user=user)
     order.table = Table.objects.get(pk=table_id) if table_id else None
     create_order_items_for_order(order, products_data)
+    order.save()
     return order
 
 
@@ -127,6 +128,6 @@ def post_receipts(order: Order):
                                        "created_at": order.created_at.strftime("%d %B %Y %H:%M"),
                                        "products": products,
                                        "is_takeaway": order.is_takeaway,
-                                       "hall": order.table.hall if order.table else None,
-                                       "table": order.table,
+                                       "hall": str(order.table.hall) if order.table else None,
+                                       "table": str(order.table),
                                        "commentary": order.commentary, "user": str(order.user)}))

@@ -42,9 +42,9 @@ export interface ProductOrderItemType {
 }
 
 export interface OrderType {
-  products: ProductOrderItemType[] | null;
-  commentary: string | null;
-  isTakeaway: boolean;
+  products: ProductOrderItemType[];
+  commentary: string;
+  isTakeaway: boolean | null;
   paidAmount: number;
 }
 
@@ -66,7 +66,7 @@ export interface AppState {
   departments: DepartmentType[] | null;
   categories: CategoryType[] | null;
   products: ProductType[] | null;
-  order: OrderType | null;
+  order: OrderType;
   orders: FetchedOrderType[] | null;
 }
 
@@ -81,6 +81,7 @@ export enum ActionType {
   SET_CATEGORIES = "SET_CATEGORIES",
   SET_PRODUCTS = "SET_PRODUCTS",
   SET_ORDER = "SET_ORDER",
+  RESET_ORDER = "RESET_ORDER",
   SET_ORDERS = "SET_ORDERS",
 }
 
@@ -130,7 +131,11 @@ export interface SetProductsAction {
 
 export interface SetOrderAction {
   type: ActionType.SET_ORDER;
-  payload: OrderType | null;
+  payload: OrderType;
+}
+
+export interface ResetOrderAction {
+  type: ActionType.RESET_ORDER;
 }
 
 export interface SetOrdersAction {
@@ -192,9 +197,13 @@ export const setProducts = (
   payload: products,
 });
 
-export const setOrder = (order: OrderType | null): SetOrderAction => ({
+export const setOrder = (order: OrderType): SetOrderAction => ({
   type: ActionType.SET_ORDER,
   payload: order,
+});
+
+export const resetOrder = (): ResetOrderAction => ({
+  type: ActionType.RESET_ORDER,
 });
 
 export const setOrders = (

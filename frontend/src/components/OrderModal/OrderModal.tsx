@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AppState,
   CategoryType,
@@ -18,24 +18,29 @@ import "./OrderModal.css";
 type OrderModalProps = {
   open: boolean;
   closeOrderModal: () => void;
+  orderEdit?: OrderType;
 };
 
-const OrderModal = ({ open, closeOrderModal }: OrderModalProps) => {
+const OrderModal = ({ open, closeOrderModal, orderEdit }: OrderModalProps) => {
   const dispatch = useDispatch();
   const [orderSummary, setOrderSummary] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoryType | null>(
     null
   );
-  const [orderItems, setOrderItems] = useState<ProductOrderItemType[] | null>(
-    null
-  );
-  const [commentary, setCommentary] = useState<string>("");
+  const order: OrderType = useSelector((state: AppState) => state.order);
   const products: ProductType[] | null = useSelector(
     (state: AppState) => state.products
   );
   const selectedTable: TableType | null = useSelector(
     (state: AppState) => state.selectedTable
   );
+
+  useEffect(() => {
+    console.log(order);
+    if (!!orderEdit) {
+      dispatch(setOrder(orderEdit));
+    }
+  }, []);
 
   const handleModalClose = () => {
     closeOrderModal();
@@ -47,7 +52,8 @@ const OrderModal = ({ open, closeOrderModal }: OrderModalProps) => {
 
   const findProduct = (product: ProductType): ProductOrderItemType | null => {
     return (
-      orderItems?.find((item) => item.product.slug === product.slug) || null
+      order?.products?.find((item) => item.product.slug === product.slug) ||
+      null
     );
   };
 
@@ -56,15 +62,25 @@ const OrderModal = ({ open, closeOrderModal }: OrderModalProps) => {
     if (targetItem) {
       let updatedItem = { ...targetItem, amount: targetItem.amount + 1 };
       let updatedItems =
-        orderItems?.map((item) =>
+        order?.products?.map((item) =>
           item.product.slug === product.slug ? updatedItem : item
         ) || null;
-      setOrderItems(updatedItems);
+      dispatch(setOrder({ ...order, products: updatedItems }));
     } else {
-      if (orderItems) {
-        setOrderItems([...orderItems, { product: product, amount: 1 }]);
+      if (order?.products) {
+        dispatch(
+          setOrder({
+            ...order,
+            products: [...order?.products, { product: product, amount: 1 }],
+          })
+        );
       } else {
-        setOrderItems([{ product: product, amount: 1 }]);
+        dispatch(
+          setOrder({
+            ...order,
+            products: [{ product: product, amount: 1 }],
+          })
+        );
       }
     }
   };
@@ -75,38 +91,38 @@ const OrderModal = ({ open, closeOrderModal }: OrderModalProps) => {
       let updatedItem = { ...targetItem, amount: targetItem.amount - 1 };
       if (updatedItem.amount <= 0) {
         let updatedItems =
-          orderItems?.filter((item) => item.product.slug !== product.slug) ||
-          null;
-        setOrderItems(updatedItems);
+          order?.products?.filter(
+            (item) => item.product.slug !== product.slug
+          ) || null;
+        dispatch(setOrder({ ...order, products: updatedItems }));
       } else {
         let updatedItems =
-          orderItems?.map((item) =>
+          order?.products?.map((item) =>
             item.product.slug === product.slug ? updatedItem : item
           ) || null;
-        setOrderItems(updatedItems);
+        dispatch(setOrder({ ...order, products: updatedItems }));
       }
     }
   };
 
   const handleSubmitCommentary = (text: string) => {
-    setCommentary(text);
+    dispatch(setOrder({ ...order, commentary: text }));
   };
 
   const handleNextClick = () => {
-    if (orderItems && orderItems.length > 0) {
-      const order: OrderType = {
-        products: orderItems,
-        commentary: commentary,
-        isTakeaway: !!!selectedTable,
-        paidAmount: getOrderTotal(orderItems),
-      };
-      dispatch(setOrder(order));
+    if (order?.products && order?.products.length > 0) {
+      dispatch(
+        setOrder({
+          ...order,
+          isTakeaway: !!!selectedTable,
+          paidAmount: getOrderTotal(order?.products),
+        })
+      );
       setOrderSummary(true);
     }
   };
 
   const handleBackClick = () => {
-    dispatch(setOrder(null));
     setOrderSummary(false);
   };
 
@@ -122,8 +138,8 @@ const OrderModal = ({ open, closeOrderModal }: OrderModalProps) => {
             width: orderSummary ? "0%" : "100%",
             overflow: orderSummary ? "hidden" : "",
           }}
-          total={getOrderTotal(orderItems || [])}
-          commentary={commentary}
+          total={getOrderTotal(order?.products)}
+          commentary={order?.commentary}
           products={products}
           selectedCategory={selectedCategory}
           handleSelectedCategoryChange={handleSelectedCategoryChange}
