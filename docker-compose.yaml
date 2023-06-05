@@ -1,19 +1,17 @@
 services:
-  # frontend:
-  #   container_name: frontend
-  #   build:
-  #     context: frontend
-  #     target: development
-  #   command: npm start
-  #   ports:
-  #     - 3000:3000
-  #   stdin_open: true
-  #   volumes:
-  #     - ./frontend:/frontend
-  #     - /frontend/node_modules
-  #   restart: always
-  #   depends_on:
-  #     - backend
+  frontend:
+    container_name: frontend
+    build:
+      context: frontend
+      target: development
+    command: npm run dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    depends_on:
+      - server
 
   server:
     container_name: server
