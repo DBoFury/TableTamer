@@ -8,11 +8,6 @@ class Category(models.Model):
         verbose_name="Category",
         help_text="Category name"
     )
-    title_ukr = models.CharField(
-        max_length=64, unique=True,
-        verbose_name="Category (UKR)",
-        help_text="Category name in Ukrainian"
-    )
 
     department = models.ForeignKey(Department,
                                    on_delete=models.CASCADE,
@@ -32,15 +27,8 @@ class Product(models.Model):
         max_length=128, unique=True,
         verbose_name="Product name",
         help_text="Product name")
-    title_ukr = models.CharField(
-        max_length=128, unique=True,
-        verbose_name="Product name (UKR)",
-        help_text="Product name in Ukrainian")
     description = models.TextField(
         verbose_name="Product description")
-    description_ukr = models.TextField(
-        verbose_name="Product description (UKR)",
-        help_text="Product description in Ukrainian")
     price = models.IntegerField(
         help_text="Product price per 1 unit"
     )
@@ -82,8 +70,6 @@ class Product(models.Model):
 class Attribute(models.Model):
     title = models.CharField(max_length=64, verbose_name="Attribute name",
                              help_text="Attribute name")
-    title_ukr = models.CharField(max_length=64, verbose_name="Attribute name (UKR)",
-                                 help_text="Attribute name in Ukrainian")
     categories = models.ManyToManyField(Category, through='AttributeValue',
                                         related_name="attributes")
 
@@ -101,9 +87,6 @@ class AttributeValue(models.Model):
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE,
                                   related_name="values")
     value = models.CharField(max_length=128, null=False, blank=False)
-    value_ukr = models.CharField(max_length=128, blank=True,
-                                 verbose_name="Value (UKR)",
-                                 help_text="Value of an attribute for a product")
     price_addition = models.SmallIntegerField(default=0,
                                               verbose_name="Price addition",
                                               help_text="Amount of addition to a end price")

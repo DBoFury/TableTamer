@@ -5,57 +5,92 @@ import {
   TableType,
   OrderType,
 } from "../../../stores/types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import StickyWrapper from "../../StickyWrapper/StickyWrapper";
 import { TextField, Typography, FormControlLabel, Button } from "@mui/material";
 import api from "../../API/api";
-import "./OrderSummary.css";
 import getOrderTotal from "../../../utils/getOrderTotal";
 import OrderDetails from "../../OrderDetails/OrderDetails";
+import "./OrderSummary.css";
+import { setOrders } from "../../../stores/reducers";
 
 interface OrderSummaryPropsType extends HTMLProps<HTMLDivElement> {
+  isEdit?: boolean;
   handleBackClick: () => void;
   closeOrderModal: () => void;
 }
 
 const OrderSummary = ({
   style,
+  isEdit,
   handleBackClick,
   closeOrderModal,
 }: OrderSummaryPropsType) => {
+  const dispatch = useDispatch();
+
   const selectedHall: HallType | null = useSelector(
     (state: AppState) => state.selectedHall
   );
   const selectedTable: TableType | null = useSelector(
     (state: AppState) => state.selectedTable
   );
-  const order: OrderType | null = useSelector((state: AppState) => state.order);
+  const order: OrderType = useSelector((state: AppState) => state.order);
+  const orders: OrderType[] = useSelector((state: AppState) => state.orders);
   const jwt: string | null = useSelector((state: AppState) => state.jwtToken);
   const paidNumberField = useRef<HTMLInputElement>(null);
 
   const getOrderData = () => {
     return {
+      ...order,
       products: order?.products?.map((item) => {
         return { slug: item.product.slug, amount: item.amount };
       }),
-      commentary: order?.commentary,
-      isTakeaway: order?.isTakeaway,
       paidAmount: paidNumberField.current?.value,
       table: selectedTable?.id,
     };
   };
 
   const handleSubmitOrder = () => {
-    api
-      .post("/orders", getOrderData(), {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then(() => {
-        closeOrderModal();
-      });
+    if (isEdit) {
+      api
+        .put(
+          `/order/${order?.id}`,
+          {
+            ...order,
+            products: order?.products?.map((item) => {
+              return { slug: item.product.slug, amount: item.amount };
+            }),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(() => {
+          closeOrderModal();
+          let ordersCopy = orders.map((item) => {
+            if (item.id === order.id) {
+              return { ...order };
+            }
+            return item;
+          });
+          dispatch(setOrders([...ordersCopy]));
+        });
+    } else {
+      api
+        .post("/orders", getOrderData(), {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .then(() => {
+          closeOrderModal();
+          dispatch(setOrders([...orders, order]));
+        });
+    }
   };
 
   useEffect(() => {
@@ -72,7 +107,12 @@ const OrderSummary = ({
           fontWeight: "bold",
           marginBottom: "20px",
         }}>
-        {order?.isTakeaway
+        {isEdit
+          ? !!!order?.table
+            ? "Order Summary"
+            : `Order Summary for ${order?.hall},
+        ${order?.table}`
+          : order?.isTakeaway
           ? "Order Summary"
           : `Order Summary for ${selectedHall?.title}, Table
         ${selectedTable?.tableNumber}`}
@@ -126,7 +166,7 @@ const OrderSummary = ({
             backgroundColor: "#5c6ac4",
           }}
           onClick={handleSubmitOrder}>
-          Create Order
+          {isEdit ? "Edit Order" : "Create Order"}
         </Button>
       </StickyWrapper>
     </div>

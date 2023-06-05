@@ -3,7 +3,7 @@ import { Button, TextField } from "@mui/material";
 import "./CommentForm.css";
 
 interface CommentFormPropsType {
-  commentary: string;
+  commentary: string | null;
   handleSubmit: (text: string) => void;
   handleCancel: () => void;
 }

@@ -5,7 +5,6 @@ export interface TableType {
 
 export interface HallType {
   title: string;
-  titleUkr: string;
   tables: TableType[];
 }
 
@@ -19,20 +18,16 @@ export interface UserType {
 
 export interface DepartmentType {
   title: string;
-  titleUkr: string;
 }
 
 export interface CategoryType {
   title: string;
-  titleUkr: string;
   department: DepartmentType;
 }
 
 export interface ProductType {
   title: string;
-  titleUkr: string;
   description: string | null;
-  descriptionUkr: string | null;
   price: number;
   stock: number | null;
   imageUrl: string;
@@ -47,19 +42,16 @@ export interface ProductOrderItemType {
 }
 
 export interface OrderType {
-  products: ProductOrderItemType[] | null;
-  commentary: string | null;
-  isTakeaway: boolean;
+  products: ProductOrderItemType[];
+  commentary: string;
+  isTakeaway: boolean | null;
   paidAmount: number;
-}
-
-export interface FetchedOrderType extends OrderType {
-  id: number;
-  hall: string;
-  table: string;
-  createdAt: string;
-  fullPrice: number;
-  submission: number;
+  id?: number;
+  hall?: string;
+  table?: string;
+  createdAt?: string;
+  fullPrice?: number;
+  submission?: number;
 }
 
 export interface AppState {
@@ -71,8 +63,8 @@ export interface AppState {
   departments: DepartmentType[] | null;
   categories: CategoryType[] | null;
   products: ProductType[] | null;
-  order: OrderType | null;
-  orders: FetchedOrderType[] | null;
+  order: OrderType;
+  orders: OrderType[];
 }
 
 export enum ActionType {
@@ -86,6 +78,7 @@ export enum ActionType {
   SET_CATEGORIES = "SET_CATEGORIES",
   SET_PRODUCTS = "SET_PRODUCTS",
   SET_ORDER = "SET_ORDER",
+  RESET_ORDER = "RESET_ORDER",
   SET_ORDERS = "SET_ORDERS",
 }
 
@@ -135,12 +128,16 @@ export interface SetProductsAction {
 
 export interface SetOrderAction {
   type: ActionType.SET_ORDER;
-  payload: OrderType | null;
+  payload: OrderType;
+}
+
+export interface ResetOrderAction {
+  type: ActionType.RESET_ORDER;
 }
 
 export interface SetOrdersAction {
   type: ActionType.SET_ORDERS;
-  payload: FetchedOrderType[] | null;
+  payload: OrderType[];
 }
 
 export const resetState = (): ResetStateAction => ({
@@ -197,14 +194,16 @@ export const setProducts = (
   payload: products,
 });
 
-export const setOrder = (order: OrderType | null): SetOrderAction => ({
+export const setOrder = (order: OrderType): SetOrderAction => ({
   type: ActionType.SET_ORDER,
   payload: order,
 });
 
-export const setOrders = (
-  orders: FetchedOrderType[] | null
-): SetOrdersAction => ({
+export const resetOrder = (): ResetOrderAction => ({
+  type: ActionType.RESET_ORDER,
+});
+
+export const setOrders = (orders: OrderType[]): SetOrdersAction => ({
   type: ActionType.SET_ORDERS,
   payload: orders,
 });
