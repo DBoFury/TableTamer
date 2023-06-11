@@ -1,0 +1,80 @@
+version: "3.7"
+
+services:
+  frontend-prod:
+    container_name: frontend-prod
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    command: 'nginx -g "daemon off;"'
+    volumes:
+      - static-volume:/home/app/web/api/static
+    networks:
+      - prod
+    ports:
+      - 80:80
+    depends_on:
+      - backend-prod
+
+  backend-prod:
+    container_name: backend-prod
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    command: gunicorn tabletamer.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static-volume:/home/app/web/api/static
+    networks:
+      - prod
+    expose:
+      - 8000
+    env_file:
+      - ./server/.env.prod
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13.2-alpine
+    container_name: tabletamer_db_prod
+    volumes:
+      - postgres-data-prod:/var/lib/postgresql/data
+    networks:
+      - prod
+    environment:
+      - POSTGRES_DB=tabletamer
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  brazier-department:
+    container_name: brazier-department
+    build:
+      context: department-server
+      target: builder
+    command: gunicorn --bind 0.0.0.0:5001 app:app
+    ports:
+      - 5001:80
+
+  bar-department:
+    container_name: bar-department
+    build:
+      context: department-server
+      target: builder
+    command: gunicorn --bind 0.0.0.0:5002 app:app
+    ports:
+      - 5002:80
+
+  kitchen-department:
+    container_name: kitchen-department
+    build:
+      context: department-server
+      target: builder
+    command: gunicorn --bind 0.0.0.0:5003 app:app
+    ports:
+      - 5003:80
+
+volumes:
+  postgres-data-prod:
+  static-volume:
+
+networks:
+  prod:

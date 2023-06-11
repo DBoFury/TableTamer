@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 django-environ = "*"
-psycopg2 = "*"
+psycopg2-binary = "*"
 pillow = "*"
 django-rest-framework = "*"
 django-nested-inline = "*"
@@ -17,6 +17,7 @@ django-cors-headers = "*"
 djangorestframework-camel-case = "*"
 django-cleanup = "*"
 requests = "*"
+gunicorn = "*"
 
 [dev-packages]
 autopep8 = "*"

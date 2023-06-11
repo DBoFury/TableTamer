@@ -33,7 +33,16 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     resetState: (state: AppState) => {
-      state = initialState;
+      state.jwtToken = initialState.jwtToken;
+      state.user = initialState.user;
+      state.halls = initialState.halls;
+      state.selectedHall = initialState.selectedHall;
+      state.selectedTable = initialState.selectedTable;
+      state.departments = initialState.departments;
+      state.categories = initialState.categories;
+      state.products = initialState.products;
+      state.order = initialState.order;
+      state.orders = initialState.orders;
     },
     setJwtToken: (state, action: PayloadAction<string | null>) => {
       state.jwtToken = action.payload;

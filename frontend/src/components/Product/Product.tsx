@@ -6,16 +6,10 @@ interface ProductPropsType {
   description: string | null;
   imageUrl: string;
   price: number;
-  isInStoplist: boolean;
+  isInStoplist?: boolean;
 }
 
-const Product = ({
-  title,
-  description,
-  imageUrl,
-  price,
-  isInStoplist,
-}: ProductPropsType) => {
+const Product = ({ title, description, imageUrl, price }: ProductPropsType) => {
   return (
     <div className="product-container">
       {imageUrl && <img src={imageUrl} />}
