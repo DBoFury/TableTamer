@@ -1,0 +1,71 @@
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile.dev
+      target: development
+    command: npm run dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    depends_on:
+      - server
+
+  server:
+    container_name: server
+    build:
+      context: server
+      dockerfile: Dockerfile.dev
+      target: development
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./server:/server
+    ports:
+      - 8000:8000
+    env_file:
+      - ./server/.env.local
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: tabletamer_db
+    image: postgres
+    volumes:
+      - postgres-data:/var/lib/posgresql/data
+    environment:
+      - POSTGRES_DB=tabletamer
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  brazier-department:
+    container_name: brazier-department
+    build:
+      context: department-server
+      target: builder
+    command: python -u main.py
+    ports:
+      - 5001:80
+
+  bar-department:
+    container_name: bar-department
+    build:
+      context: department-server
+      target: builder
+    command: python -u main.py
+    ports:
+      - 5002:80
+
+  kitchen-department:
+    container_name: kitchen-department
+    build:
+      context: department-server
+      target: builder
+    command: python -u main.py
+    ports:
+      - 5003:80
+
+volumes:
+  postgres-data:

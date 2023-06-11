@@ -3,35 +3,16 @@ import json
 import requests
 from django.db.models import Sum
 from halls.models import Table
-from products.models import AttributeValue, Product
+from products.models import Product
 
-from .models import Order, OrderItem, SelectedAttribute
+from .models import Order, OrderItem
 
 
 def create_order_items_for_order(order: Order, products_data):
     for product_data in products_data:
-        attributes = []
         product = Product.objects.get(slug=product_data["slug"])
         order_item = OrderItem.objects.create(order=order, product=product,
                                               amount=product_data["amount"])
-        for selected_attribute in product_data.get("attribute_values", []):
-            attribute = product.category.attributes.distinct().get(
-                title=selected_attribute["title"])
-            attributes.append(attribute)
-            attribute_value = AttributeValue.objects.get(
-                attribute=attribute,
-                value=selected_attribute["value"]
-            )
-            SelectedAttribute.objects.create(order_item=order_item,
-                                             attribute_value=attribute_value)
-        for attribute_type in product.category.attributes.all().distinct():
-            if not attribute_type in attributes:
-                default_attribute_value = AttributeValue.objects.get(
-                    attribute=attribute_type,
-                    price_addition=0
-                )
-                SelectedAttribute.objects.create(order_item=order_item,
-                                                 attribute_value=default_attribute_value)
 
 
 def is_order_data_valid(request):
@@ -98,9 +79,7 @@ def update_order(request, order: Order):
 
 def post_receipts(order: Order):
     def _get_order_item_dict(order_item: OrderItem):
-        price_per_unit = (order_item.product.price +
-                          order_item.attribute_values
-                          .aggregate(Sum("price_addition"))["price_addition__sum"])
+        price_per_unit = order_item.product.price
         full_price = order_item.amount * price_per_unit
         return {"title": order_item.product.title,
                 "amount": order_item.amount,

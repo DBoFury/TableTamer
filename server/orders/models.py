@@ -1,7 +1,6 @@
 from django.db import models
-from django.db.models import Sum
 from halls.models import Hall, Table
-from products.models import AttributeValue, Product
+from products.models import Product
 from users.models import User
 
 
@@ -28,10 +27,7 @@ class Order(models.Model):
     def full_price(self) -> int:
         full_price = 0
         for order_item in self.order_items.all():
-            full_price += order_item.amount * \
-                (order_item.product.price +
-                 order_item.attribute_values
-                    .aggregate(Sum("price_addition"))["price_addition__sum"])
+            full_price += order_item.amount * order_item.product.price
         return full_price
 
     @property
@@ -51,14 +47,3 @@ class OrderItem(models.Model):
 
     amount = models.SmallIntegerField(
         help_text="Amount of product ordered")
-
-    attribute_values = models.ManyToManyField(AttributeValue,
-                                              through="SelectedAttribute")
-
-
-class SelectedAttribute(models.Model):
-    order_item = models.ForeignKey(OrderItem,
-                                   on_delete=models.CASCADE,
-                                   related_name="selected_attributes")
-    attribute_value = models.ForeignKey(
-        AttributeValue, on_delete=models.CASCADE)

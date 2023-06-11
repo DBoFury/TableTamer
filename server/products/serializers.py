@@ -1,33 +1,14 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from .models import Product, Category, AttributeValue, Attribute
+from .models import Product, Category
 from departments.serializers import DepartmentSerializer
-
-
-class AttributeValueSerializer(ModelSerializer):
-    class Meta:
-        model = AttributeValue
-        fields = ("value", "price_addition")
-
-
-class AttributeSerializer(ModelSerializer):
-    values = AttributeValueSerializer(many=True)
-
-    class Meta:
-        model = Attribute
-        fields = ("title", "values")
 
 
 class CategorySerializer(ModelSerializer):
     department = DepartmentSerializer()
-    attributes = SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ("title", "department", "attributes")
-
-    def get_attributes(self, obj):
-        return AttributeSerializer(obj.attributes.distinct(),
-                                   many=True).data
+        fields = ("title", "department",)
 
 
 class ProductSerializer(ModelSerializer):

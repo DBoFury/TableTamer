@@ -3,28 +3,15 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField, R
 from users.serializers import UserSerializer
 
 
-from .models import Order, OrderItem, SelectedAttribute
-
-
-class SelectedAttributeSerializer(ModelSerializer):
-    title = ReadOnlyField(source='attribute_value.attribute.title')
-    value = ReadOnlyField(source='attribute_value.value')
-    price_addition = ReadOnlyField(source='attribute_value.price_addition')
-
-    class Meta:
-        model = SelectedAttribute
-        fields = ("title", "value",
-                  "price_addition", )
+from .models import Order, OrderItem
 
 
 class OrderItemSerializer(ModelSerializer):
     product = ProductSerializer()
-    attribute_values = SelectedAttributeSerializer(
-        many=True, source="selected_attributes")
 
     class Meta:
         model = OrderItem
-        fields = ("product", "attribute_values", "amount", )
+        fields = ("product", "amount", )
 
 
 class OrderSerializer(ModelSerializer):

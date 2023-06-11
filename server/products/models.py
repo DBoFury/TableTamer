@@ -65,35 +65,3 @@ class Product(models.Model):
     class Meta:
         verbose_name = "Product"
         verbose_name_plural = "Products"
-
-
-class Attribute(models.Model):
-    title = models.CharField(max_length=64, verbose_name="Attribute name",
-                             help_text="Attribute name")
-    categories = models.ManyToManyField(Category, through='AttributeValue',
-                                        related_name="attributes")
-
-    def __str__(self) -> str:
-        return self.title
-
-    class Meta:
-        verbose_name = "Attribute"
-        verbose_name_plural = "Attributes"
-
-
-class AttributeValue(models.Model):
-    category = models.ForeignKey(
-        Category, on_delete=models.CASCADE)
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE,
-                                  related_name="values")
-    value = models.CharField(max_length=128, null=False, blank=False)
-    price_addition = models.SmallIntegerField(default=0,
-                                              verbose_name="Price addition",
-                                              help_text="Amount of addition to a end price")
-
-    def __str__(self) -> str:
-        return f'{self.attribute } with value of "{self.value}" (additional price {self.price_addition})'
-
-    class Meta:
-        verbose_name = "Attribute Value"
-        verbose_name_plural = "Attribute Values"

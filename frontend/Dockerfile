@@ -1,11 +1,16 @@
-FROM node:16.13.0-alpine AS development
+FROM node:lts-slim as builder
+
+COPY package.json package-lock.json ./
+RUN npm install && mkdir /frontend && mv ./node_modules ./frontend
 
 WORKDIR /frontend
-
-COPY package*.json ./
-
-RUN npm install
-
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
+
+
+FROM nginx:1.19.2-alpine
+COPY --from=builder /frontend/dist /usr/share/nginx/html
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d
+EXPOSE 80
