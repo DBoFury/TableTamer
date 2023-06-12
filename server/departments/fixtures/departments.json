@@ -4,7 +4,7 @@
         "pk": 1,
         "fields": {
             "title": "Kitchen",
-            "department_url": "localhost:5003"
+            "department_url": "frontend/kitchen"
         }
     },
     {
@@ -12,7 +12,7 @@
         "pk": 2,
         "fields": {
             "title": "Brazier",
-            "department_url": "localhost:5001"
+            "department_url": "frontend/brazier"
         }
     },
     {
@@ -20,7 +20,7 @@
         "pk": 3,
         "fields": {
             "title": "Bar",
-            "department_url": "localhost:5002"
+            "department_url": "frontend/bar"
         }
     }
 ]

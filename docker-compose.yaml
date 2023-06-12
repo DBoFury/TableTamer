@@ -56,27 +56,27 @@ services:
     expose:
       - 5001
 
-  # brazier-department:
-  #   container_name: brazier-department
-  #   build:
-  #     context: department-server
-  #     target: builder
-  #   networks:
-  #     - prod
-  #   command: gunicorn production:app --bind 0.0.0.0:5002
-  #   expose:
-  #     - 5002
+  brazier-department:
+    container_name: brazier-department
+    build:
+      context: department-server
+      target: builder
+    networks:
+      - prod
+    command: gunicorn production:app --bind 0.0.0.0:5002
+    expose:
+      - 5002
 
-  # kitchen-department:
-  #   container_name: kitchen-department
-  #   build:
-  #     context: department-server
-  #     target: builder
-  #   networks:
-  #     - prod
-  #   command: gunicorn production:app --bind 0.0.0.0:5003
-  #   expose:
-  #     - 5003
+  kitchen-department:
+    container_name: kitchen-department
+    build:
+      context: department-server
+      target: builder
+    networks:
+      - prod
+    command: gunicorn production:app --bind 0.0.0.0:5003
+    expose:
+      - 5003
 
 volumes:
   postgres-data-prod:

@@ -59,7 +59,10 @@ class OrdersListView(APIView):
         validation_result = is_order_data_valid(request)
         if not isinstance(validation_result, str):
             order = create_order(request)
-            post_receipts(order)
+            try:
+                post_receipts(order)
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
             return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
         return Response({"error": validation_result}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -88,7 +91,10 @@ class OrderView(APIView):
         validation_result = is_order_data_valid(request)
         if not isinstance(validation_result, str):
             order = update_order(request, order)
-            post_receipts(order)
+            try:
+                post_receipts(order)
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
             return Response(OrderSerializer(order).data, status=status.HTTP_202_ACCEPTED)
         return Response({"error": validation_result}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -1,7 +1,7 @@
 import json
 
 import requests
-from django.db.models import Sum
+from django.conf import settings
 from halls.models import Table
 from products.models import Product
 
@@ -91,8 +91,9 @@ def post_receipts(order: Order):
     order_items = order.order_items.all()\
         .select_related("product")
     for order_item in order_items:
-        department_url = order_item.product\
-            .category.department.title.lower()
+        department_url = f"{order_item.product.category.department.title.lower()}-department-dev"\
+            if settings.DEBUG else order_item.product\
+            .category.department.department_url
         if department_url in departments:
             departments[department_url].append(
                 _get_order_item_dict(order_item))
@@ -101,7 +102,7 @@ def post_receipts(order: Order):
                 _get_order_item_dict(order_item)]
 
     for department_url, products in departments.items():
-        requests.post(f"http://{department_url}-department/print-order",
+        requests.post(f"http://{department_url}/print-order",
                       headers={"Content-Type": "application/json"},
                       json=json.dumps({"id": order.id,
                                        "created_at": order.created_at.strftime("%d %B %Y %H:%M"),
