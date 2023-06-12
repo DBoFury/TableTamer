@@ -1,8 +1,8 @@
 version: "3.7"
 
 services:
-  frontend-prod:
-    container_name: frontend-prod
+  frontend:
+    container_name: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -14,10 +14,10 @@ services:
     ports:
       - 80:80
     depends_on:
-      - backend-prod
+      - backend
 
-  backend-prod:
-    container_name: backend-prod
+  backend:
+    container_name: backend
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -35,7 +35,7 @@ services:
 
   postgres:
     image: postgres:13.2-alpine
-    container_name: tabletamer_db_prod
+    container_name: tabletamer-db
     volumes:
       - postgres-data-prod:/var/lib/postgresql/data
     networks:
@@ -45,32 +45,38 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  brazier-department:
-    container_name: brazier-department
-    build:
-      context: department-server
-      target: builder
-    command: gunicorn --bind 0.0.0.0:5001 app:app
-    ports:
-      - 5001:80
-
   bar-department:
     container_name: bar-department
     build:
       context: department-server
       target: builder
-    command: gunicorn --bind 0.0.0.0:5002 app:app
-    ports:
-      - 5002:80
+    networks:
+      - prod
+    command: gunicorn production:app --bind 0.0.0.0:5001
+    expose:
+      - 5001
 
-  kitchen-department:
-    container_name: kitchen-department
-    build:
-      context: department-server
-      target: builder
-    command: gunicorn --bind 0.0.0.0:5003 app:app
-    ports:
-      - 5003:80
+  # brazier-department:
+  #   container_name: brazier-department
+  #   build:
+  #     context: department-server
+  #     target: builder
+  #   networks:
+  #     - prod
+  #   command: gunicorn production:app --bind 0.0.0.0:5002
+  #   expose:
+  #     - 5002
+
+  # kitchen-department:
+  #   container_name: kitchen-department
+  #   build:
+  #     context: department-server
+  #     target: builder
+  #   networks:
+  #     - prod
+  #   command: gunicorn production:app --bind 0.0.0.0:5003
+  #   expose:
+  #     - 5003
 
 volumes:
   postgres-data-prod:

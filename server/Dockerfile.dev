@@ -7,3 +7,5 @@ COPY requirements.txt /server/
 RUN pip install -r requirements.txt
 
 COPY . /server/
+
+ENTRYPOINT ["/server/entrypoint.sh"]
