@@ -7,9 +7,12 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-app.logger.setLevel(logging.INFO)
+default_handler = app.logger.handlers[0]
+app.logger.removeHandler(default_handler)
+
 stream_handler = logging.StreamHandler()
 app.logger.addHandler(stream_handler)
+app.logger.setLevel(logging.INFO)
 
 
 @app.route("/", methods=["GET"])
