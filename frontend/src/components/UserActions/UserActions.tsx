@@ -3,7 +3,7 @@ import { ImExit } from "react-icons/im";
 import { BsFillGearFill } from "react-icons/bs";
 import Expand from "react-expand-animated";
 import { useDispatch } from "react-redux";
-import { resetState } from "../../stores/reducers";
+import { resetUser } from "../../stores/reducers";
 import { useNavigate } from "react-router-dom";
 import "./UserActions.css";
 
@@ -39,7 +39,7 @@ const UserActions = ({
 
   const handleLoginClick = () => {
     localStorage.removeItem("token");
-    dispatch(resetState());
+    dispatch(resetUser());
     navigate("/login");
   };
 

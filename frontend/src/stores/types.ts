@@ -71,6 +71,7 @@ export enum ActionType {
   RESET_STATE = "RESET_STATE",
   SET_JWT_TOKEN = "SET_JWT_TOKEN",
   SET_USER = "SET_USER",
+  RESET_USER = "RESET_USER",
   SET_HALLS = "SET_HALLS",
   SET_SELECTED_HALL = "SET_SELECTED_HALL",
   SET_SELECTED_TABLE = "SET_SELECTED_TABLE",
@@ -94,6 +95,10 @@ export interface SetJwtTokenAction {
 export interface SetUserAction {
   type: ActionType.SET_USER;
   payload: UserType | null;
+}
+
+export interface ResetUserAction {
+  type: ActionType.RESET_USER;
 }
 
 export interface SetHallsAction {
@@ -152,6 +157,10 @@ export const setJwtToken = (token: string | null): SetJwtTokenAction => ({
 export const setUser = (user: UserType | null): SetUserAction => ({
   type: ActionType.SET_USER,
   payload: user,
+});
+
+export const resetUser = (): ResetUserAction => ({
+  type: ActionType.RESET_USER,
 });
 
 export const setHalls = (data: HallType[] | null): SetHallsAction => ({

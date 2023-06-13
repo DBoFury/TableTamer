@@ -50,6 +50,10 @@ const appSlice = createSlice({
     setUser: (state, action: PayloadAction<UserType | null>) => {
       state.user = action.payload;
     },
+    resetUser: (state: AppState) => {
+      state.user = null;
+      state.jwtToken = null;
+    },
     setHalls: (state, action: PayloadAction<HallType[] | null>) => {
       state.halls = action.payload;
     },
@@ -84,6 +88,7 @@ export const {
   resetState,
   setJwtToken,
   setUser,
+  resetUser,
   setHalls,
   setSelectedHall,
   setSelectedTable,
