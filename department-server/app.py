@@ -1,10 +1,15 @@
 import json
+import logging
 import math
 import textwrap
 
 from flask import Flask, request
 
 app = Flask(__name__)
+
+app.logger.setLevel(logging.INFO)
+stream_handler = logging.StreamHandler()
+app.logger.addHandler(stream_handler)
 
 
 @app.route("/", methods=["GET"])
@@ -152,6 +157,6 @@ def print_order():
         receipt_str += _get_commentary_str(commentary, receipt_width)
         receipt_str += _get_split_line(receipt_width)
 
-    print(receipt_str)
+    app.logger.info(receipt_str)
 
     return receipt_str

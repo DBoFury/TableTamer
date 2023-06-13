@@ -9,6 +9,7 @@ services:
     command: 'nginx -g "daemon off;"'
     volumes:
       - static-volume:/home/app/web/api/static
+      - media-volume:/home/app/web/api/media
     networks:
       - prod
     ports:
@@ -24,6 +25,7 @@ services:
     command: gunicorn tabletamer.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static-volume:/home/app/web/api/static
+      - media-volume:/home/app/web/api/media
     networks:
       - prod
     expose:
@@ -81,6 +83,7 @@ services:
 volumes:
   postgres-data-prod:
   static-volume:
+  media-volume:
 
 networks:
   prod:
