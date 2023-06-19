@@ -27,7 +27,7 @@ RUN mkdir $APP_HOME/api/static
 RUN mkdir $APP_HOME/api/media
 WORKDIR $APP_HOME
 
-RUN apt-get update && apt-get install -y python3-dev gcc musl-dev libffi-dev netcat
+RUN apt-get update && apt-get install -y python3-dev gcc musl-dev libffi-dev
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*

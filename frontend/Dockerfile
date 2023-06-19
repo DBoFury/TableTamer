@@ -1,4 +1,4 @@
-FROM node:lts-slim as builder
+FROM node:14-alpine as builder
 
 COPY package.json package-lock.json ./
 RUN npm install && mkdir /frontend && mv ./node_modules ./frontend
@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 
 
-FROM nginx:1.19.2-alpine
+FROM node:14-alpine
 COPY --from=builder /frontend/dist /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d
